@@ -1,15 +1,34 @@
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Objectify Play Repository</title>
+    <link rel="stylesheet" media="screen" href="./lib/css/main.css">
     <link rel="stylesheet" media="screen" href="./lib/css/bootstrap-responsive.min.css">
     <link rel="stylesheet" media="screen" href="./lib/css/bootstrap.min.css">
+    <link rel="stylesheet" media="screen" href="./lib/css/font-awesome.css">
 </head>
 <body>
-<div class="container" xmlns="http://www.w3.org/1999/html">
-    <div class="hero-unit">
-        <h1>Objectify Play! Repository</h1>
-        <p>This repository contains Play 2 modules from <a href="http://www.objectify.be" target="_blank">Objectify</a>.</p>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Objectify</a>
+            <div class="nav-collapse">
+                <ul class="nav">
+                    <li><a href="http://www.objectify.be" target="_blank"><i class="icon-globe"></i> Blog</a></li>
+                    <li><a href="https://twitter.com/steve_objectify" target="_blank"><i class="icon-twitter"></i> Twitter</a></li>
+                    <li><a href="https://www.github.com/schaloner" target="_blank"><i class="icon-github"></i> GitHub</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
     </div>
+</div>
+
+<div class="container">
     <div class="row">
         <div class="span12">
             <h3>Resolvers</h3>
@@ -33,12 +52,6 @@ val appDependencies = Seq(
   "be.objectify" %% "deadbolt-2" % "1.1.2"
 )
             </pre>
-        </div>
-    </div>
-    <div class="row">
-        <div class="span12">
-            <a href="https://twitter.com/steve_objectify" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @steve_objectify</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
         </div>
     </div>
 </div>
