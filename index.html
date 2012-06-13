@@ -1,11 +1,46 @@
 <html>
 <head>
     <title>Objectify Play Repository</title>
+    <link rel="stylesheet" media="screen" href="./lib/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" media="screen" href="./lib/css/bootstrap.min.css">
 </head>
 <body>
-<ul>
-    <li>Resolver.url("Objectify Play Repository", url("http://schaloner.github.com/releases/"))(Resolver.ivyStylePatterns)</li>
-    <li>Resolver.url("Objectify Play Repository", url("http://schaloner.github.com/releases/"))(Resolver.ivyStylePatterns)</li>
-</ul>
+<div class="container" xmlns="http://www.w3.org/1999/html">
+    <div class="hero-unit">
+        <h1>Objectify Play! Repository</h1>
+        <p>This repository contains Play 2 modules from <a href="http://www.objectify.be" target="_blank">Objectify</a>.</p>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <h3>Resolvers</h3>
+            <p>To add resolvers for this repository to your Play 2 project, use</p>
+            <pre class="code">
+val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
+  resolvers += Resolver.url("Objectify Play Repository", url("http://schaloner.github.com/releases/"))(Resolver.ivyStylePatterns),
+  resolvers += Resolver.url("Objectify Play Repository", url("http://schaloner.github.com/snapshots/"))(Resolver.ivyStylePatterns)
+)
+            </pre>
+
+            <p>Don't forget to change the mainLang as necessary!</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <h3>Deadbolt 2</h3>
+            <p>To use the latest release version of Deadbolt 2 in your project, use</p>
+            <pre class="code">
+val appDependencies = Seq(
+  "be.objectify" %% "deadbolt-2" % "1.1.2"
+)
+            </pre>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <a href="https://twitter.com/steve_objectify" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @steve_objectify</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+        </div>
+    </div>
+</div>
 </body>
 </html>
