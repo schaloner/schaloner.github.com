@@ -29,27 +29,7 @@
         </dependency>
         <dependency>
             <groupId>play</groupId>
-            <artifactId>play-java-jdbc_2.10</artifactId>
-            <version>2.1-RC1</version>
-        </dependency>
-        <dependency>
-            <groupId>play</groupId>
-            <artifactId>anorm_2.10</artifactId>
-            <version>2.1-RC1</version>
-        </dependency>
-        <dependency>
-            <groupId>play</groupId>
-            <artifactId>play-jdbc_2.10</artifactId>
-            <version>2.1-RC1</version>
-        </dependency>
-        <dependency>
-            <groupId>play</groupId>
             <artifactId>play-java_2.10</artifactId>
-            <version>2.1-RC1</version>
-        </dependency>
-        <dependency>
-            <groupId>play</groupId>
-            <artifactId>play-java-ebean_2.10</artifactId>
             <version>2.1-RC1</version>
         </dependency>
     </dependencies>
