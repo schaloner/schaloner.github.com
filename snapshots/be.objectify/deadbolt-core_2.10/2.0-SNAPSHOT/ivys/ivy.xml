@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivy-module version="2.0" xmlns:e="http://ant.apache.org/ivy/extra">
-	<info organisation="be.objectify" module="deadbolt-core_2.10" revision="2.0-SNAPSHOT" status="integration" publication="20121211215319">
+	<info organisation="be.objectify" module="deadbolt-core_2.10" revision="2.0-SNAPSHOT" status="integration" publication="20121215110436">
 		<description>
 		deadbolt-core
 		</description>
