@@ -15,11 +15,13 @@
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
             <version>2.10.0</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>play</groupId>
             <artifactId>play_2.10</artifactId>
             <version>2.1.0</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>play</groupId>
@@ -29,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>be.objectify</groupId>
-            <artifactId>deadbolt-core_2.10</artifactId>
+            <artifactId>deadbolt-core</artifactId>
             <version>2.1-RC2</version>
         </dependency>
     </dependencies>
@@ -44,6 +46,12 @@
             <id>TypesafeSnapshotsRepository</id>
             <name>Typesafe Snapshots Repository</name>
             <url>http://repo.typesafe.com/typesafe/snapshots/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>ObjectifyMavenRepository</id>
+            <name>Objectify Maven Repository</name>
+            <url>http://schaloner.github.io/maven/release/</url>
             <layout>default</layout>
         </repository>
     </repositories>
