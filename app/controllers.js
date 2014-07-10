@@ -9,8 +9,8 @@ function setMenuChoice(activeId) {
     $('#'+activeId).addClass('active').blur();
 }
 
-deadboltControllers.controller('HomeCtrl', ['$scope', 'Version', 'PlayVersions',
-  function($scope, Version, PlayVersions) {
+deadboltControllers.controller('HomeCtrl', ['$scope', 'Version', 'PlayVersions', 'DeadboltUsers',
+  function($scope, Version, PlayVersions, DeadboltUsers) {
 
     setMenuChoice('homeLink');
 
@@ -22,6 +22,22 @@ deadboltControllers.controller('HomeCtrl', ['$scope', 'Version', 'PlayVersions',
       $scope.scalaVersions = versions.scala;
     });
 
+    $scope.deadboltUsers = DeadboltUsers.query({}, function(deadboltUsers) {
+      $scope.choppedUsers = [];
+      var currentSubset = {added:false, content:[]};
+      for (var i = 0, len = deadboltUsers.length; i < len; i++) {
+        if (currentSubset.content.length <= 2) {
+          currentSubset.content.push(deadboltUsers[i]);
+        } else {
+          currentSubset = {added:false, content:[]};
+          currentSubset.content.push(deadboltUsers[i]);
+        }
+        if (!currentSubset.added) {
+          currentSubset.added = true;
+          $scope.choppedUsers.push(currentSubset.content);
+        }
+      }
+    });
 
     $scope.availableVersions = PlayVersions.query({}, function(playVersions) {
       $scope.currentPlayVersion = playVersions[playVersions.length - 1];

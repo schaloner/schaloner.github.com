@@ -16,3 +16,9 @@ deadboltServices.factory('PlayVersions', ['$resource',
     query: {method:'GET', isArray: true}
   });
 }]);
+deadboltServices.factory('DeadboltUsers', ['$resource',
+ function($resource){
+  return $resource('./deadbolt-users.json', {}, {
+    query: {method:'GET', isArray: true}
+  });
+}]);

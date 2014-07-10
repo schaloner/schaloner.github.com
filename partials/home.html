@@ -57,7 +57,21 @@ resolvers += Resolver.url("Objectify Play Snapshot Repository", url("http://scha
 </div>
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
-        <h3>Are you using Deadbolt? Let me know and I'll list you here.</h3>
+        <h2>Who's using Deadbolt?</h2>
+    </div>
+</div>
+<div class="row" ng-repeat="userSubset in choppedUsers">
+    <div class="col-md-1"></div>
+    <div class="col-md-2 col-md-offset-1" ng-repeat="deadboltUser in userSubset">
+        <a href="{{deadboltUser.url}}" target="_new"><h4 class="deadboltUserName">{{deadboltUser.name}}</h4></a>
+        <a href="{{deadboltUser.url}}" target="_new"><img ng-src="{{deadboltUser.image}}" title="{{deadboltUser.name}}"/></a>
+        <div>{{deadboltUser.description}}</div>
+        <div><i class="fa fa-map-marker"></i> {{deadboltUser.location}}</div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10 col-md-offset-2">
+        <h4><i class="fa fa-bullhorn"></i> Are you using Deadbolt? Let me know and I'll list you here.</h4>
     </div>
 </div>
 </div>
