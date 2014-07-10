@@ -1,0 +1,191 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2">
+        <div class="well panel panel-default">
+            <div class="panel-heading">General</div>
+            <div class="panel-body">
+                <ul>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('intro')">Intro</button></li>
+                </ul>
+            </div>
+            <div class="panel-heading">Configuration</div>
+            <div class="panel-body">
+                <ul>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('dependencies')">Dependencies</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('applicationConf')">application.conf</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('plugin')">The Deadbolt plugin</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('deadboltHandler')">DeadboltHandler</button></li>
+                </ul>
+            </div>
+
+            <div class="panel-heading">Controllers</div>
+            <div class="panel-body">
+                <ul>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('controllerSubjectPresent')">SubjectPresent</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('controllerSubjectNotPresent')">SubjectNotPresent</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('controllerRestrict')">Restrict</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('controllerDynamic')">Dynamic</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('controllerPattern')">Pattern</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('controllerUnrestricted')">Unrestricted</button></li>
+                </ul>
+            </div>
+
+            <div class="panel-heading">Templates</div>
+            <div class="panel-body">
+                <ul>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('templateSubjectPresent')">subjectPresent</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('templateSubjectNotPresent')">subjectNotPresent</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('templateRestrict')">restrict</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('templateDynamic')">dynamic</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('templatePattern')">pattern</button></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10">
+      <div ng-if="section == 'intro'">
+        <h3>Intro</h3>
+          <p>Dadbolt is centered around a single idea - restricting access to a resource to a specific group of users. I've had several e-mails from developers who have thought that Deadbolt had a "restrict from" approach, and therefore could not understand why the authorisation was failing so spectacularly; to forestall future questions about this, I want to make it completely clear - D2 uses "restrict to". For example, a controller action annotated with @Restrict("foo") would only allow users with the "foo" role to access the method.</p>
+
+          <p>Two mechanisms are provided to declare these restrictions - one at the template level and another at the controller level.</p>
+
+          <h4>Template-level restrictions</h4>
+
+          <p>For a Play 2 application that uses server-side rendering, D2 provides several template tags that will conceal or reveal DOM elements based on your specifications.</p>
+
+          <p>A couple of basic use cases are
+
+          <ul>
+            <li>Only displayed a "Log in" link if there is no user present</li>
+            <li>Even if a user is logged in, only display an "Administration" link if the user has administrative privileges</li>
+          </ul>
+          </p>
+
+          <p>However, it is extremely important to note that using these tags will only give you a cleaner UI, one that is better tailored to the user's privileges. It will not secure your server-side code in any way except - possibly - obscurity. Server-side routes can be invoked from outside of templates by changing the URL in the browser's address bar, using command-line tools such as cURL and many other ways.</p>
+
+          <p>If you have seen the original Dawn Of The Dead (Romero, 1978), you may remember the protagonists concealing the entrance to their living quarters using a panel of painted hardboard. There are no additional defensive layers behind this concealment. When a zombified protagonist breaks through the hardboard, knowing there is something he wants on the other side, all security is gone. Minutes later, there's blood everywhere and the survivors have to flee.</p>
+
+          <p>Template security is like painted hardboard - the features it offers are certainly nice to have, but a further level of defensive depth is required. For this, you need controller action security - otherwise, the zombies will get you.</p>
+
+          <p>If you haven't seen Dawn Of The Dead, sorry for the spoilers.  Now step away from your computer and go watch it.</p>
+
+          <h4>Controller-level restrictions</h4>
+
+          <p>The controller layer is most vunerable part of your application to external attack, because that is the part that's visible to whichever networks it is on. Attack in this sense may be a concious attack on your system, or inadvertant damage caused by unauthorised users who are otherwise authenticated in your system.</p>
+
+          <p>Controller authorisation blocks or allows access to a method. Whereas template restrictions are essentially a boolean evaluation - "if user satisfies these conditions, then...", controller authorisation is quite a bit more powerful. Specifically, while an authorised result is generated from your application code, unauthorised results can be customised as required; you can return any status code you like along with any content you like. If you're feeling particularly nasty, why not send a 302 redirect to a not-suitable-for-work website? If you want to, the option is there.</p>
+
+          <p>A HTTP request has a life cycle. At a high level, it is
+
+          <ul>
+            <li>Sent</li>
+            <li>Received</li>
+            <li>Processed</li>
+            <li>Answered</li>
+          </ul>
+          </p>
+
+          <p>The processed point is where our web applications live. In a sense, the high level life cycle is repeated again here, as the request is sent from the container into the application, received by the app, processed and answered. Deadbolt controller constraints occur at the point where the container (the Play server, in this case) hands the request over to the application; Deadbolt templates work during the processing phase as a response body is rendered.</p>
+        <span next-section section="dependencies" label="Dependencies"></span>
+      </div>
+      <div ng-if="section == 'dependencies'">
+        <h3>Dependencies</h3>
+        <span next-section section="applicationConf" label="application.conf"></span>
+      </div>
+      <div ng-if="section == 'applicationConf'">
+        <h3>application.conf</h3>
+        <p>The high-level configuration of Deadbolt is specified in <code>application.conf</code>.</p>
+
+        <h4>deadbolt.java.handler</h4>
+        <p>This tells Deadbolt which handler you wish to use as a default when one isn't explicitly specified in the Deadbolt constraint. This will be explained in more detail when we look at the individual constraints.</p>
+
+        <p>For a DeadboltHandler implementation whose fully-qualified name is <code>com.example.myapp.security.MyDeadboltHandler</code>, your <code>application.conf</code> would have the entry
+
+<pre>deadbolt.java.handler=com.example.myapp.security.MyDeadboltHandler</pre></p>
+
+<p>Personally, I prefer the HOCON (Human-Optimized Config Object Notation) syntax supported by Play, so I would recommend the following:
+
+<pre>deadbolt {
+    java {
+        handler=com.example.myapp.security.MyDeadboltHandler
+    }
+}</pre></p>
+
+        <h4>deadbolt.java.cache-user</h4>
+        <p>By default, Deadbolt does not cache the subject returned from <code>DeadboltHandler#getSubject</code>.  This means that if your implementation of this method retrieves the user from the database, that database call will be made every time the subject is required.  For templates, this can get quite expensive.</p>
+
+        <p>If you want the subject to be cached, resulting in a maximum of one call to <code>DeadboltHandler#getSubject</code> per request, you can set the <code>deadbolt.java.cache-user</code> flag.
+<pre>deadbolt {
+    java {
+        cache-user=true
+    }
+}</pre></p>
+        <span next-section section="plugin" label="The Deadbolt plugin"></span>
+      </div>
+      <div ng-if="section == 'plugin'">
+        <h3>Plugin</h3>
+        <div>
+            <p>The initial version of Deadbolt held the default DeadboltHandler implementation, as specific in application.conf, as a static variable. This led immediately to problems with the hot reload carried out by Play when it detects code changes at runtime. To address this issue, the default handler is now created by and held in a plugin, whose lifecycle is managed by the framework.</p>
+
+            <p>To activate the plugin, you need to update your <code>conf/play.plugins</code> file. If this file doesn't already exist (it's not created automatically when you create a new Play app), then add it yourself. The necessary line is
+
+<pre class="code">10000:be.objectify.deadbolt.java.DeadboltPlugin</pre></p>
+
+            <p>The 10000 defines the loading priority of the plugin -lower numbers are loaded first. If you have no other plugins, this is irrelevant. If you do have other plugins, you'll need to work out the best way to order them. D2 should, in theory and so far in practice, play nicely with other modules so its loading priority (again, in theory) should not matter. File this under "Things I should be aware of".</p>
+
+            <p>When the plugin starts, it will attempt to read the class name specified by <code>deadbolt.java.handler</code> in <code>application.conf</code>. If found, an instance of the class will then be instantiated. If the instantiation fails, an exception will be thrown so you receive a fail-fast response on start-up.</p>
+
+            <p><i class="fa fa-exclamation-triangle"></i> It is a valid scenario to have no default handler specified. If <code>deadbolt.java.handler</code> doesn't appear in your configuration, a warning will be logged to alert you of this.</p>
+        </div>
+        <span next-section section="deadboltHandler" label="DeadboltHandler"></span>
+      </div>
+      <div ng-if="section == 'deadboltHandler'">
+        <h3>DeadboltHandler</h3>
+        <span next-section section="controllerSubjectPresent" label="SubjectPresent"></span>
+      </div>
+      <div ng-if="section == 'controllerSubjectPresent'">
+        <h3>@SubjectPresent</h3>
+        <button type="button" class="btn btn-link" ng-click="setSection('controllerSubjectNotPresent')">Next - SubjectNotPresent</button>
+      </div>
+      <div ng-if="section == 'controllerSubjectNotPresent'">
+        <h3>@SubjectNotPresent</h3>
+        <button type="button" class="btn btn-link" ng-click="setSection('controllerRestrict')">Next - Restrict</button>
+      </div>
+      <div ng-if="section == 'controllerRestrict'">
+        <h3>@Restrict</h3>
+        <button type="button" class="btn btn-link" ng-click="setSection('controllerDynamic')">Next - Dynamic</button>
+      </div>
+      <div ng-if="section == 'controllerDynamic'">
+        <h3>@Dynamic</h3>
+        <button type="button" class="btn btn-link" ng-click="setSection('controllerPattern')">Next - Pattern</button>
+      </div>
+      <div ng-if="section == 'controllerPattern'">
+        <h3>@Pattern</h3>
+        <button type="button" class="btn btn-link" ng-click="setSection('controllerUnrestricted')">Next - Unrestricted</button>
+      </div>
+      <div ng-if="section == 'controllerUnrestricted'">
+        <h3>@Unrestricted</h3>
+        <button type="button" class="btn btn-link" ng-click="setSection('templateSubjectPresent')">Next - subjectPresent</button>
+      </div>
+      <div ng-if="section == 'templateSubjectPresent'">
+        <h3>subjectPresent</h3>
+        <button type="button" class="btn btn-link" ng-click="setSection('templateSubjectNotPresent')">Next - subjectNotPresent</button>
+      </div>
+      <div ng-if="section == 'templateSubjectNotPresent'">
+        <h3>subjectNotPresent</h3>
+        <button type="button" class="btn btn-link" ng-click="setSection('templateRestrict')">Next - restrict</button>
+      </div>
+      <div ng-if="section == 'templateRestrict'">
+        <h3>restrict</h3>
+        <button type="button" class="btn btn-link" ng-click="setSection('templateDynamic')">Next - dynamic</button>
+      </div>
+      <div ng-if="section == 'templateDynamic'">
+        <h3>dynamic</h3>
+        <button type="button" class="btn btn-link" ng-click="setSection('templatePattern')">Next - pattern</button>
+      </div>
+      <div ng-if="section == 'templatePattern'">
+        <h3>pattern</h3>
+      </div>
+  </div>
+</div>
+</div>

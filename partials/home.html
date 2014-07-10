@@ -1,0 +1,63 @@
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="jumbotron jumbotron-custom">
+            <h1>Deadbolt</h1>
+            <p>Deadbolt is a powerful, comprehensive authorization module for the Play framework.</p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2 col-md-offset-2">
+        <h2>Java and Scala APIs</h2>
+        <p>Deadbolt has idiomatic APIs for Java and Scala.</p>
+    </div>
+    <div class="col-md-2 col-md-offset-1">
+        <h2>Controller- and view-level auth</h2>
+        <p>An extensible range of static and dynamic authorisations at the controller level.  Similarly, you can customise your UI based on a user's authorization levels.</p>
+    </div>
+    <div class="col-md-2 col-md-offset-1">
+        <h2>Plays well with others</h2>
+        <p>Authentication support is pluggable - use your favourite tool to let users log in.</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h3>Repository</h3>
+        Deadbolt is currently hosted in the Objectify repository. At some point in the future, it will move to Maven Central. In the meantime, you need to add the following to your Play
+        project:
+          <pre class="well">
+resolvers += Resolver.url("Objectify Play Repository", url("http://schaloner.github.io/releases/"))(Resolver.ivyStylePatterns),
+resolvers += Resolver.url("Objectify Play Snapshot Repository", url("http://schaloner.github.io/snapshots/"))(Resolver.ivyStylePatterns)
+          </pre>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h3>Which version should I use?</h3>
+
+        <div>
+            <label for="currentLanguage" id="currentLanguageLabel">Language:</label>
+            <select ng-model="currentLanguage" ng-options="availableLanguage as availableLanguage.label for availableLanguage in availableLanguages" id="currentLanguage">
+            </select>
+        </div>
+        <div>
+            <label for="playVersion" id="playVersionLabel">Play version:</label>
+            <select ng-model="currentPlayVersion" ng-options="availableVersion as availableVersion.label for availableVersion in availableVersions" id="playVersion">
+            </select>
+        </div>
+        <div ng-repeat="javaVersion in javaVersions | filter:{playVersion:currentPlayVersion.value}:true" ng-if="currentLanguage.value == 'java' || currentLanguage.value == 'all'">
+          <pre class="code">Dependency: "{{javaVersion.groupId}}" %% "{{javaVersion.artifactId}}" % "{{javaVersion.version}}"</pre>
+        </div>
+        <div ng-repeat="scalaVersion in scalaVersions | filter:{playVersion:currentPlayVersion.value}:true" ng-if="currentLanguage.value == 'scala' || currentLanguage.value == 'all'">
+          <pre class="code">Dependency: "{{scalaVersion.groupId}}" %% "{{scalaVersion.artifactId}}" % "{{scalaVersion.version}}"</pre>
+        </div>
+    </div>
+</div>
+</div>
+<div class="row">
+    <div class="col-md-10 col-md-offset-2">
+        <h3>Are you using Deadbolt? Let me know and I'll list you here.</h3>
+    </div>
+</div>
+</div>

@@ -1,0 +1,69 @@
+body {
+    padding-top: 60px;
+}
+
+.no-bullets { 
+  list-style-type: none;
+}
+
+.jumbotron-custom {
+    background-color: #DDDDFF;
+}
+
+#currentLanguageLabel {
+    width: 100px;
+}
+
+
+#playVersionLabel {
+    width: 100px;
+}
+
+.sidebar-nav {
+    padding: 9px 0;
+}
+
+h3.subsection {
+    padding-left: 7px;
+    margin-top: 7px;
+    background-color: #8fd2ff;
+}
+
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by it's height */
+    margin: 0 auto -60px;
+}
+
+
+#push,
+#footer {
+    height: 60px;
+}
+#footer {        
+    border-top: 1px solid #E5E5E5;
+    background-color: whiteSmoke; 
+    height: 150px; 
+    padding-top: 25px;        
+}
+
+.btn-link {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 3px;
+}
+
+h4 {
+  padding-top: 10px;
+}
+
+@media (max-width: 767px) {
+    #footer {
+      margin-left: -20px;
+      margin-right: -20px;
+      padding-left: 20px;
+      padding-right: 20px;
+  }
+}
