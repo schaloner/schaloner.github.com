@@ -145,26 +145,333 @@
       </div>
       <div ng-if="section == 'controllerSubjectPresent'">
         <h3>@SubjectPresent</h3>
+
+        <p>A subject must be provided by the <code>DeadboltHandler</code> to have access to the resource, but no role checks are performed.</p>
+
+        <h4>Attributes</h4>
+        <table class="table table-striped table-bordered">
+          <thead>
+              <tr>
+                <th>Name</th>
+                <th>Default value</th>
+                <th>Description</th>
+                <th>Notes</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>content</td>
+              <td><code>""</code></td>
+              <td>Indicates the expected response type. Useful when working with non-HTML responses. This is free text, which you can use in <code>DeadboltHandler#onAuthFailure</code> to decide on how to handle the response.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>handler</td>
+              <td><code>DeadboltHandler.class</code></td>
+              <td>Use a specific <code>DeadboltHandler</code> implementation for this restriction in place of the global one.</td>
+              <td class="danger">Deprecated - use handlerKey instead</td>
+            </tr>
+            <tr>
+              <td>handlerKey</td>
+              <td><code>""</code></td>
+              <td>Use a specific <code>DeadboltHandler</code> implementation for this restriction in place of the global one, identified by a key.  The key/value pair is specified in application.conf.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>deferred</td>
+              <td><code>false</code></td>
+              <td>If true, the annotation will only be run if there is a <code>@DeferredDeadbolt</code> annotation at the class level.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>forceBeforeAuthCheck</td>
+              <td><code>false</code></td>
+              <td>Indicates if <code>DeadboltHandler#beforeAuthCheck</code> should be invoked before this constraint is applied. Defaults to false for historic and generally good reasons, namely that a handler that complains based on user presence can shortcut this constraint.</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+
         <button type="button" class="btn btn-link" ng-click="setSection('controllerSubjectNotPresent')">Next - SubjectNotPresent</button>
       </div>
       <div ng-if="section == 'controllerSubjectNotPresent'">
         <h3>@SubjectNotPresent</h3>
+
+        <p>The subject provided by the <code>DeadboltHandler</code> must be null to have access to the resource.</p>
+
+        <h4>Attributes</h4>
+        <table class="table table-striped table-bordered">
+          <thead>
+              <tr>
+                <th>Name</th>
+                <th>Default value</th>
+                <th>Description</th>
+                <th>Notes</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>content</td>
+              <td><code>""</code></td>
+              <td>Indicates the expected response type. Useful when working with non-HTML responses. This is free text, which you can use in <code>DeadboltHandler#onAuthFailure</code> to decide on how to handle the response.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>handler</td>
+              <td><code>DeadboltHandler.class</code></td>
+              <td>Use a specific <code>DeadboltHandler</code> implementation for this restriction in place of the global one.</td>
+              <td class="danger">Deprecated - use handlerKey instead</td>
+            </tr>
+            <tr>
+              <td>handlerKey</td>
+              <td><code>""</code></td>
+              <td>Use a specific <code>DeadboltHandler</code> implementation for this restriction in place of the global one, identified by a key.  The key/value pair is specified in application.conf.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>deferred</td>
+              <td><code>false</code></td>
+              <td>If true, the annotation will only be run if there is a <code>@DeferredDeadbolt</code> annotation at the class level.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>forceBeforeAuthCheck</td>
+              <td><code>false</code></td>
+              <td>Indicates if <code>DeadboltHandler#beforeAuthCheck</code> should be invoked before this constraint is applied. Defaults to false for historic and generally good reasons, namely that a handler that complains based on user presence can shortcut this constraint.</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+
         <button type="button" class="btn btn-link" ng-click="setSection('controllerRestrict')">Next - Restrict</button>
       </div>
       <div ng-if="section == 'controllerRestrict'">
         <h3>@Restrict</h3>
+        <p>Restricts access to a controller, allowing only subjects with the necessary role(s) to make a successful call.  Roles are defined in one or more <code>@Group</code> annotations.</p>
+        <p>Within an <code>Group</code>, roles are ANDed, and between Group the role groups are ORed.</p>
+        <p>For example <code>@Restrict({@Group("foo")</code>, <code>@Group("hurdy", "gurdy")})</code> means the subject must have either the foo role OR both the hurdy AND gurdy roles.</p>
+        <p>Role names that start with <code>!</code> are negated, so <code>@Restrict({@Group("foo", "bar"), @Group("hurdy", "!gurdy")})</code> requires the subject to have either the foo role AND the bar roles, or the hurdy AND NOT the gurdy roles.</p>
+
+        <h4>Attributes</h4>
+        <table class="table table-striped table-bordered">
+          <thead>
+              <tr>
+                <th>Name</th>
+                <th>Default value</th>
+                <th>Description</th>
+                <th>Notes</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>value</td>
+              <td></td>
+              <td>The combination of roles required to allow access.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>content</td>
+              <td><code>""</code></td>
+              <td>Indicates the expected response type. Useful when working with non-HTML responses. This is free text, which you can use in <code>DeadboltHandler#onAuthFailure</code> to decide on how to handle the response.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>handler</td>
+              <td><code>DeadboltHandler.class</code></td>
+              <td>Use a specific <code>DeadboltHandler</code> implementation for this restriction in place of the global one.</td>
+              <td class="danger">Deprecated - use handlerKey instead</td>
+            </tr>
+            <tr>
+              <td>handlerKey</td>
+              <td><code>""</code></td>
+              <td>Use a specific <code>DeadboltHandler</code> implementation for this restriction in place of the global one, identified by a key.  The key/value pair is specified in application.conf.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>deferred</td>
+              <td><code>false</code></td>
+              <td>If true, the annotation will only be run if there is a <code>@DeferredDeadbolt</code> annotation at the class level.</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+
         <button type="button" class="btn btn-link" ng-click="setSection('controllerDynamic')">Next - Dynamic</button>
       </div>
       <div ng-if="section == 'controllerDynamic'">
         <h3>@Dynamic</h3>
+
+        <p>This is the most flexible constraint.  The implementation of the block/allow behaviour is provided through a <code>DynamicResourceHandler</code>, so you can write anything you want in there.</p>
+
+        <h4>Attributes</h4>
+        <table class="table table-striped table-bordered">
+          <thead>
+              <tr>
+                <th>Name</th>
+                <th>Default value</th>
+                <th>Description</th>
+                <th>Notes</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>value</td>
+              <td></td>
+              <td>The name of the resource.  This will be passed into the <code>DynamicResourceHandler</code> returned by the current <code>DeadboltHandler</code>.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>meta</td>
+              <td><code>""</code></td>
+              <td>Additional information when deciding on access to the resource. It's a free formatted string, so you can pass simple data or more complex string such as foo=bar,hurdy=gurdy which can be parsed into a map.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>content</td>
+              <td><code>""</code></td>
+              <td>Indicates the expected response type. Useful when working with non-HTML responses. This is free text, which you can use in <code>DeadboltHandler#onAuthFailure</code> to decide on how to handle the response.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>handler</td>
+              <td><code>DeadboltHandler.class</code></td>
+              <td>Use a specific <code>DeadboltHandler</code> implementation for this restriction in place of the global one.</td>
+              <td class="danger">Deprecated - use handlerKey instead</td>
+            </tr>
+            <tr>
+              <td>handlerKey</td>
+              <td><code>""</code></td>
+              <td>Use a specific <code>DeadboltHandler</code> implementation for this restriction in place of the global one, identified by a key.  The key/value pair is specified in application.conf.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>deferred</td>
+              <td><code>false</code></td>
+              <td>If true, the annotation will only be run if there is a <code>@DeferredDeadbolt</code> annotation at the class level.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>forceBeforeAuthCheck</td>
+              <td><code>false</code></td>
+              <td>Indicates if <code>DeadboltHandler#beforeAuthCheck</code> should be invoked before this constraint is applied. Defaults to false for historic and generally good reasons, namely that a handler that complains based on user presence can shortcut this constraint.</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+
         <button type="button" class="btn btn-link" ng-click="setSection('controllerPattern')">Next - Pattern</button>
       </div>
       <div ng-if="section == 'controllerPattern'">
         <h3>@Pattern</h3>
+
+        <p>The Pattern constraint is used to test the permissions (not roles!) of the subject.  Three types of matching are supported, as specified by <code>be.objectify.deadbolt.core.PatternType</code>.</p>
+        <ul>
+          <li><code>PatternType.EQUALITY</code> - Checks the pattern against the permissions of the user.  Exact, case-sensitive matches only!</li>
+          <li><code>PatternType.REGEX</code> - A standard regular expression that will be evaluated against the permissions of the subject.</li>
+          <li><code>PatternType.CUSTOM</code> - Perform some custom matching on the pattern, using <code>DynamicResourceHandler#checkPermission</code>.</li>
+        </ul>
+
+        <h4>Attributes</h4>
+        <table class="table table-striped table-bordered">
+          <thead>
+              <tr>
+                <th>Name</th>
+                <th>Default value</th>
+                <th>Description</th>
+                <th>Notes</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>value</td>
+              <td></td>
+              <td>The pattern.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>patternType</td>
+              <td><code>PatternType.EQUALITY</code></td>
+              <td>The type of pattern matching required.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>content</td>
+              <td><code>""</code></td>
+              <td>Indicates the expected response type. Useful when working with non-HTML responses. This is free text, which you can use in <code>DeadboltHandler#onAuthFailure</code> to decide on how to handle the response.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>handler</td>
+              <td><code>DeadboltHandler.class</code></td>
+              <td>Use a specific <code>DeadboltHandler</code> implementation for this restriction in place of the global one.</td>
+              <td class="danger">Deprecated - use handlerKey instead</td>
+            </tr>
+            <tr>
+              <td>handlerKey</td>
+              <td><code>""</code></td>
+              <td>Use a specific <code>DeadboltHandler</code> implementation for this restriction in place of the global one, identified by a key.  The key/value pair is specified in application.conf.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>deferred</td>
+              <td><code>false</code></td>
+              <td>If true, the annotation will only be run if there is a <code>@DeferredDeadbolt</code> annotation at the class level.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>forceBeforeAuthCheck</td>
+              <td><code>false</code></td>
+              <td>Indicates if <code>DeadboltHandler#beforeAuthCheck</code> should be invoked before this constraint is applied. Defaults to false for historic and generally good reasons, namely that a handler that complains based on user presence can shortcut this constraint.</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+
         <button type="button" class="btn btn-link" ng-click="setSection('controllerUnrestricted')">Next - Unrestricted</button>
       </div>
       <div ng-if="section == 'controllerUnrestricted'">
         <h3>@Unrestricted</h3>
+
+        <p>Indicates there are no restrictions on the resource.</p>
+
+        <h4>Attributes</h4>
+        <table class="table table-striped table-bordered">
+          <thead>
+              <tr>
+                <th>Name</th>
+                <th>Default value</th>
+                <th>Description</th>
+                <th>Notes</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>content</td>
+              <td><code>""</code></td>
+              <td>Indicates the expected response type. Useful when working with non-HTML responses. This is free text, which you can use in <code>DeadboltHandler#onAuthFailure</code> to decide on how to handle the response.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>handler</td>
+              <td><code>DeadboltHandler.class</code></td>
+              <td>Use a specific <code>DeadboltHandler</code> implementation for this restriction in place of the global one.</td>
+              <td class="danger">Deprecated - use handlerKey instead</td>
+            </tr>
+            <tr>
+              <td>handlerKey</td>
+              <td><code>""</code></td>
+              <td>Use a specific <code>DeadboltHandler</code> implementation for this restriction in place of the global one, identified by a key.  The key/value pair is specified in application.conf.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>deferred</td>
+              <td><code>false</code></td>
+              <td>If true, the annotation will only be run if there is a <code>@DeferredDeadbolt</code> annotation at the class level.</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+
         <button type="button" class="btn btn-link" ng-click="setSection('templateSubjectPresent')">Next - subjectPresent</button>
       </div>
       <div ng-if="section == 'templateSubjectPresent'">
