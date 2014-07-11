@@ -63,6 +63,16 @@ h4.deadboltUserName {
   text-align: center;
 }
 
+div.panel-body > ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+div.panel-body > ul > li {
+  list-style-type: none;
+}
+
 @media (max-width: 767px) {
     #footer {
       margin-left: -20px;

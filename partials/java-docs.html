@@ -45,13 +45,13 @@
     <div class="col-md-10">
       <div ng-if="section == 'intro'">
         <h3>Intro</h3>
-          <p>Dadbolt is centered around a single idea - restricting access to a resource to a specific group of users. I've had several e-mails from developers who have thought that Deadbolt had a "restrict from" approach, and therefore could not understand why the authorisation was failing so spectacularly; to forestall future questions about this, I want to make it completely clear - D2 uses "restrict to". For example, a controller action annotated with @Restrict("foo") would only allow users with the "foo" role to access the method.</p>
+          <p>Deadbolt is centered around a single idea - restricting access to a resource to a specific group of users. I've had several e-mails from developers who have thought that Deadbolt had a "restrict from" approach, and therefore could not understand why the authorisation was failing so spectacularly; to forestall future questions about this, I want to make it completely clear - Deadbolt uses "restrict to". For example, a controller action annotated with @Restrict(@Group("foo")) would only allow users <strong>with</strong> the "foo" role to access the method.</p>
 
           <p>Two mechanisms are provided to declare these restrictions - one at the template level and another at the controller level.</p>
 
           <h4>Template-level restrictions</h4>
 
-          <p>For a Play 2 application that uses server-side rendering, D2 provides several template tags that will conceal or reveal DOM elements based on your specifications.</p>
+          <p>For a Play 2 application that uses server-side rendering, Deadbolt provides several template tags that will conceal or reveal DOM elements based on your specifications.</p>
 
           <p>A couple of basic use cases are
 
@@ -67,11 +67,11 @@
 
           <p>Template security is like painted hardboard - the features it offers are certainly nice to have, but a further level of defensive depth is required. For this, you need controller action security - otherwise, the zombies will get you.</p>
 
-          <p>If you haven't seen Dawn Of The Dead, sorry for the spoilers.  Now step away from your computer and go watch it.</p>
+          <p>If you haven't seen Dawn Of The Dead, sorry for the spoilers.  Now step away from your computer and go watch the movie.</p>
 
           <h4>Controller-level restrictions</h4>
 
-          <p>The controller layer is most vunerable part of your application to external attack, because that is the part that's visible to whichever networks it is on. Attack in this sense may be a concious attack on your system, or inadvertant damage caused by unauthorised users who are otherwise authenticated in your system.</p>
+          <p>The controller layer is most vulnerable part of your application to external attack, because that is the part that's visible to whichever networks it is on. Attack in this sense may be a concious attack on your system, or inadvertant damage caused by unauthorised users who are otherwise authenticated in your system.</p>
 
           <p>Controller authorisation blocks or allows access to a method. Whereas template restrictions are essentially a boolean evaluation - "if user satisfies these conditions, then...", controller authorisation is quite a bit more powerful. Specifically, while an authorised result is generated from your application code, unauthorised results can be customised as required; you can return any status code you like along with any content you like. If you're feeling particularly nasty, why not send a 302 redirect to a not-suitable-for-work website? If you want to, the option is there.</p>
 
@@ -131,7 +131,7 @@
 
 <pre class="code">10000:be.objectify.deadbolt.java.DeadboltPlugin</pre></p>
 
-            <p>The 10000 defines the loading priority of the plugin -lower numbers are loaded first. If you have no other plugins, this is irrelevant. If you do have other plugins, you'll need to work out the best way to order them. D2 should, in theory and so far in practice, play nicely with other modules so its loading priority (again, in theory) should not matter. File this under "Things I should be aware of".</p>
+            <p>The 10000 defines the loading priority of the plugin -lower numbers are loaded first. If you have no other plugins, this is irrelevant. If you do have other plugins, you'll need to work out the best way to order them. Deadbolt should, in theory and so far in practice, play nicely with other modules so its loading priority (again, in theory) should not matter. File this under "Things I should be aware of".</p>
 
             <p>When the plugin starts, it will attempt to read the class name specified by <code>deadbolt.java.handler</code> in <code>application.conf</code>. If found, an instance of the class will then be instantiated. If the instantiation fails, an exception will be thrown so you receive a fail-fast response on start-up.</p>
 
