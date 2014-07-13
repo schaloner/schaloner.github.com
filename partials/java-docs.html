@@ -15,6 +15,7 @@
                     <li><button type="button" class="btn btn-link" ng-click="setSection('applicationConf')">application.conf</button></li>
                     <li><button type="button" class="btn btn-link" ng-click="setSection('plugin')">The Deadbolt plugin</button></li>
                     <li><button type="button" class="btn btn-link" ng-click="setSection('deadboltHandler')">DeadboltHandler</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('dynamicResourceHandler')">DynamicResourceHandler</button></li>
                 </ul>
             </div>
 
@@ -120,6 +121,79 @@
         cache-user=true
     }
 }</pre></p>
+
+        <h4>deadbolt.before-auth-check-timeout</h4>
+        <p>Internal calls to <code>DeadboltHandler#beforeAuthCheck</code> receive a Promise, and use a default timeout of 2000 milliseconds when redeeming it.  If you want to change the timeout period, set <code>deadbolt.before-auth-check-timeout</code>.</p>
+
+        <p>Two important things to note:
+          <ul>
+            <li>The value is in milleseconds, not seconds.</li>
+            <li>The key does NOT contain <code>.java</code></li>
+          </ul>
+        </p>
+
+<pre>deadbolt {
+    # Use a 4000 millisecond timeout when getting the result from the beforeAuthCheck promise
+    before-auth-check-timeout=4000
+}</pre>
+
+        <h4>deadbolt.java.handlers</h4>
+        <p>No, that's not a typo and this is not accidentally repeated content.  All Deadbolt controller constraints have a <code>handlerKey</code> attribute.  The value of that attibute, if it matches the key in the <code>deadbolt.java.handlers</code> object, will be used as the <code>DeadboltHandler</code> for the request.</p>
+
+<pre>deadbolt {
+    java {
+        handlers {
+            foo=com.example.security.FooDeadboltHandler,
+            bar=com.example.security.BarDeadboltHandler
+        }
+    }
+}</pre>
+
+        <p>
+          If you don't want to have both <code>deadbolt.java.handler</code> and <code>deadbolt.java.handlers</code>, which can be a little confusing, you can do it all with <code>deadbolt.java.handlers</code>.  Internally, <code>deadbolt.java.handler</code> is treated as <code>deadbolt.java.handlers.defaultHandler</code>.  Therefore, you can take a configuration that looks like this
+
+<pre>
+deadbolt {
+    java {
+        handler=com.example.security.MyDeadboltHandler
+        handlers {
+            foo=com.example.security.FooDeadboltHandler,
+            bar=com.example.security.BarDeadboltHandler
+        }
+    }
+}</pre>
+
+you could rewrite it as 
+<pre>
+deadbolt {
+    java {
+        handlers {
+            defaultHandler=com.example.security.MyDeadboltHandler,
+            foo=com.example.security.FooDeadboltHandler,
+            bar=com.example.security.BarDeadboltHandler
+        }
+    }
+}</pre>
+        </p>
+
+        <p>If, for whatever reason, you have both <code>deadbolt.java.handler</code> and <code>deadbolt.java.handlers.defaultHandler</code> defined in your configuration, the definition of <code>deadbolt.java.handler</code> will take precedence.</p>
+
+        <h4>Putting it all together</h4>
+        <p>A complete example configuration would therefore look something like this.
+
+<pre>deadbolt {
+    before-auth-check-timeout=4000,
+    java {
+        cache-user=true,
+        handlers {
+            defaultHandler=com.example.security.MyDeadboltHandler,
+            foo=com.example.security.FooDeadboltHandler,
+            bar=com.example.security.BarDeadboltHandler
+        }
+    }
+}</pre></p>
+        
+
         <span next-section section="plugin" label="The Deadbolt plugin"></span>
       </div>
       <div ng-if="section == 'plugin'">
@@ -141,6 +215,35 @@
       </div>
       <div ng-if="section == 'deadboltHandler'">
         <h3>DeadboltHandler</h3>
+        <p>In order for Deadbolt to do its thing, it'll need some information from your application.  To provide this, you need to implement the <code>be.objectify.deadbolt.java.DeadboltHandler</code> interface. The four methods defined by this interface are crucial to Deadbolt - they are used to access the current user (or subject, to use the correct security terminology), determine what to do on an authorization failure, etc.</p>
+
+        <p>Each <code>DeadboltHandler</code> instance declared in the configuration (see <button type="button" class="btn btn-link" ng-click="setSection('applicationConf')">application.conf</button>) is cached, and shared between requests and so should be stateless and lightweight.</p>
+
+        <h4>Subject getSubject(Http.Context context)</h4>
+        <p>Gets the current <code>be.objectify.deadbolt.core.models.Subject</code>, e.g. the current user.</p>
+
+        <h4>F.Promise<Result> beforeAuthCheck(Http.Context context)</h4>
+        <p>Invoked immediately before controller or view restrictions are checked. This forms the integration point with any authentication actions that may need to occur.</p>
+
+        <h4>F.Promise<Result> onAuthFailure(Http.Context context, String content)</h4>
+        <p>Invoked when an authorization failure occurs.  The <code>content</code> parameter is passed in from the <code>content</code> attribute of the controller constraints.</p>
+
+        <h4>DynamicResourceHandler getDynamicResourceHandler(Http.Context context)</h4>
+        <p>Gets an instance of <code>be.objectify.deadbolt.java.DynamicResourceHandler</code>.  More information is present in the <button type="button" class="btn btn-link" ng-click="setSection('dynamicResourceHandler')">DynamicResourceHandler</button> scetion.</p>
+
+        <span next-section section="dynamicResourceHandler" label="DynamicResourceHandler"></span>
+      </div>
+      <div ng-if="section == 'dynamicResourceHandler'">
+        <h3>DynamicResourceHandler</h3>
+        <p>To deal with dynamic constraints, i.e. <code>@Dynamic</code> and <code>@Pattern</code>, you're going to need to do some work because the constraints are completely arbitrary.</p>
+
+        <h4>boolean isAllowed(String name, String meta, DeadboltHandler deadboltHandler, Http.Context ctx)</h4>
+        <p>Check the access of the named resource, when a <code>@Dynamic</code> constraint is used.  Take a look at the page for <button type="button" class="btn btn-link" ng-click="setSection('controllerDynamic')">Dynamic</button> to see more information.</p>
+        <p>It's often useful to delegate the call to this method to something specific to the resource name.  Otherwise, this method can end up looking like if-then-else hell.</p>
+
+        <h4>boolean checkPermission(String permissionValue, DeadboltHandler deadboltHandler, Http.Context ctx)</h4>
+        <p>When a <code>@Pattern</code> constraint of type <code>PatternType.CUSTOM</code> is used, this method is used to check authorization.  Take a look at the page for <button type="button" class="btn btn-link" ng-click="setSection('controllerPattern')">Pattern</button> to see more information.</p>
+
         <span next-section section="controllerSubjectPresent" label="SubjectPresent"></span>
       </div>
       <div ng-if="section == 'controllerSubjectPresent'">
