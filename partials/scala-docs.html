@@ -2,47 +2,128 @@
   <div class="row">
     <div class="col-md-2">
         <div class="well panel panel-default">
+            <div class="panel-heading">General</div>
+            <div class="panel-body">
+                <ul>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('intro')">Intro</button></li>
+                </ul>
+            </div>
             <div class="panel-heading">Configuration</div>
             <div class="panel-body">
                 <ul>
-                    <li><a href="#dependencies">Dependencies</a></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('dependencies')">Dependencies</button></a></li>
                 </ul>
             </div>
 
             <div class="panel-heading">Controllers</div>
             <div class="panel-body">
                 <ul>
-                    <li><a href="#controller-SubjectPresent">SubjectPresent</a></li>
-                    <li><a href="#controller-SubjectNotPresent">SubjectNotPresent</a></li>
-                    <li><a href="#controller-Restrict">Restrict</a></li>
-                    <li><a href="#controller-Restrictions">Restrictions</a></li>
-                    <li><a href="#controller-Dynamic">Dynamic</a></li>
-                    <li><a href="#controller-Pattern">Pattern</a></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('controllerSubjectPresent')">SubjectPresent</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('controllerSubjectNotPresent')">SubjectNotPresent</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('controllerRestrict')">Restrict</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('controllerDynamic')">Dynamic</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('controllerPattern')">Pattern</button></li>
                 </ul>
             </div>
 
             <div class="panel-heading">Templates</div>
             <div class="panel-body">
                 <ul>
-                    <li><a href="#template-subjectPresent">@subjectPresent</a></li>
-                    <li><a href="#template-subjectNotPresent">@subjectNotPresent</a></li>
-                    <li><a href="#template-restrict">@restrict</a></li>
-                    <li><a href="#template-restrictions">@restrictions</a></li>
-                    <li><a href="#template-dynamic">@dynamic</a></li>
-                    <li><a href="#template-pattern">@pattern</a></li>
-                </ul>
-            </div>
-
-            <div class="panel-heading">Miscellaneous</div>
-            <div class="panel-body">
-                <ul>
-                    <li><a href="#why-no-unrestricted">Why u no have Unrestricted?</a></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('templateSubjectPresent')">subjectPresent</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('templateSubjectNotPresent')">subjectNotPresent</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('templateRestrict')">restrict</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('templateDynamic')">dynamic</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('templatePattern')">pattern</button></li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="col-md-10">
-      <p>Scala documentation here</p>
+      <div ng-if="section == 'intro'">
+        <h3>Intro</h3>
+        <p>In progress</p>
+        <span next-section section="dependencies" label="Dependencies"></span>
+      </div>
+      <div ng-if="section == 'dependencies'">
+        <h3>Dependencies</h3>
+        <h4>Repository</h4>
+        <p>Deadbolt is currently hosted in the Objectify repository. At some point in the future, it will move to Maven Central. In the meantime, you need to add the following to your Play
+        project:
+        <pre class="well">resolvers += Resolver.url("Objectify Play Repository", url("http://schaloner.github.io/releases/"))(Resolver.ivyStylePatterns)</pre>
+        </p>
+
+        <h4>Which version should I use?</h4>
+        <p>To help you choose the correct version to Deadbolt to use, select your preferred language and Play version below.  The necessary SBT dependency will be shown. 
+
+        <div>
+            <label for="currentLanguage" id="currentLanguageLabel">Language:</label>
+            <select ng-model="currentLanguage" ng-options="availableLanguage as availableLanguage.label for availableLanguage in availableLanguages" id="currentLanguage">
+            </select>
+        </div>
+        <div>
+            <label for="playVersion" id="playVersionLabel">Play version:</label>
+            <select ng-model="currentPlayVersion" ng-options="availableVersion as availableVersion.label for availableVersion in availableVersions" id="playVersion">
+            </select>
+        </div>
+        <div ng-repeat="javaVersion in javaVersions | filter:{playVersion:currentPlayVersion.value}:true" ng-if="currentLanguage.value == 'java' || currentLanguage.value == 'all'">
+          <label>SBT dependency:</label>
+          <pre class="code">"{{javaVersion.groupId}}" %% "{{javaVersion.artifactId}}" % "{{javaVersion.version}}"</pre>
+        </div>
+        <div ng-repeat="scalaVersion in scalaVersions | filter:{playVersion:currentPlayVersion.value}:true" ng-if="currentLanguage.value == 'scala' || currentLanguage.value == 'all'">
+          <label>SBT dependency:</label>
+          <pre class="code">"{{scalaVersion.groupId}}" %% "{{scalaVersion.artifactId}}" % "{{scalaVersion.version}}"</pre>
+        </div>
+        <span next-section section="controllerSubjectPresent" label="SubjectPresent"></span>
+      </div>
+      <div ng-if="section == 'controllerSubjectPresent'">
+        <h3>SubjectPresent</h3>
+        <p>In progress</p>
+        <span next-section section="controllerSubjectNotPresent" label="SubjectNotPresent"></span>
+      </div>
+      <div ng-if="section == 'controllerSubjectNotPresent'">
+        <h3>SubjectNotPresent</h3>
+        <p>In progress</p>
+        <span next-section section="controllerRestrict" label="Restrict"></span>
+      </div>
+      <div ng-if="section == 'controllerRestrict'">
+        <h3>Restrict</h3>
+        <p>In progress</p>
+        <span next-section section="controllerDynamic" label="Dynamic"></span>
+      </div>
+      <div ng-if="section == 'controllerDynamic'">
+        <h3>Dynamic</h3>
+        <p>In progress</p>
+        <span next-section section="controllerPattern" label="Pattern"></span>
+      </div>
+      <div ng-if="section == 'controllerPattern'">
+        <h3>Pattern</h3>
+        <p>In progress</p>
+        <span next-section section="templateSubjectPresent" label="subjectPresent"></span>
+      </div>
+      <div ng-if="section == 'templateSubjectPresent'">
+        <h3>subjectPresent</h3>
+        <p>In progress</p>
+        <span next-section section="templateSubjectNotPresent" label="subjectNotPresent"></span>
+      </div>
+      <div ng-if="section == 'templateSubjectNotPresent'">
+        <h3>subjectNotPresent</h3>
+        <p>In progress</p>
+        <span next-section section="templateRestrict" label="restrict"></span>
+      </div>
+      <div ng-if="section == 'templateRestrict'">
+        <h3>restrict</h3>
+        <p>In progress</p>
+        <span next-section section="templateDynamic" label="dynamic"></span>
+      </div>
+      <div ng-if="section == 'templateDynamic'">
+        <h3>dynamic</h3>
+        <p>In progress</p>
+        <span next-section section="templatePattern" label="pattern"></span>
+      </div>
+      <div ng-if="section == 'templatePattern'">
+        <h3>pattern</h3>
+        <p>In progress</p>
+      </div>
+    </div>
   </div>
-</div>
 </div>

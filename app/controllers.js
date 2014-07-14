@@ -67,9 +67,24 @@ deadboltControllers.controller('JavaDocsCtrl', ['$scope', 'Version', 'PlayVersio
   }]);
 
 
-deadboltControllers.controller('ScalaDocsCtrl', ['$scope',
-  function($scope) {
+deadboltControllers.controller('ScalaDocsCtrl', ['$scope', 'Version', 'PlayVersions',
+  function($scope, Version, PlayVersions) {
     setMenuChoice('scalaDocsLink');
 
+    $scope.availableLanguages = [{value:'java', label:'Java'}, {value:'scala', label:'Scala'}, {value:'all', label:'All'}]
+    $scope.currentLanguage = $scope.availableLanguages[1];
+
+    Version.query({}, function(versions) {
+      $scope.javaVersions = versions.java;
+      $scope.scalaVersions = versions.scala;
+    });
+
+    $scope.availableVersions = PlayVersions.query({}, function(playVersions) {
+      $scope.currentPlayVersion = playVersions[playVersions.length - 1];
+    });
+
     $scope.section = 'intro';
+    $scope.setSection = function(section) {
+      $scope.section = section;
+    };
   }]);
