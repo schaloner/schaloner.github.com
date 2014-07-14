@@ -24,12 +24,9 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <h3>Repository</h3>
-        Deadbolt is currently hosted in the Objectify repository. At some point in the future, it will move to Maven Central. In the meantime, you need to add the following to your Play
+        <p>Deadbolt is currently hosted in the Objectify repository. At some point in the future, it will move to Maven Central. In the meantime, you need to add the following to your Play
         project:
-          <pre class="well">
-resolvers += Resolver.url("Objectify Play Repository", url("http://schaloner.github.io/releases/"))(Resolver.ivyStylePatterns),
-resolvers += Resolver.url("Objectify Play Snapshot Repository", url("http://schaloner.github.io/snapshots/"))(Resolver.ivyStylePatterns)
-          </pre>
+          <pre class="well">resolvers += Resolver.url("Objectify Play Repository", url("http://schaloner.github.io/releases/"))(Resolver.ivyStylePatterns)</pre></p>
     </div>
 </div>
 <div class="row">
@@ -47,10 +44,12 @@ resolvers += Resolver.url("Objectify Play Snapshot Repository", url("http://scha
             </select>
         </div>
         <div ng-repeat="javaVersion in javaVersions | filter:{playVersion:currentPlayVersion.value}:true" ng-if="currentLanguage.value == 'java' || currentLanguage.value == 'all'">
-          <pre class="code">Dependency: "{{javaVersion.groupId}}" %% "{{javaVersion.artifactId}}" % "{{javaVersion.version}}"</pre>
+          <label>SBT dependency:</label>
+          <pre class="code">"{{javaVersion.groupId}}" %% "{{javaVersion.artifactId}}" % "{{javaVersion.version}}"</pre>
         </div>
         <div ng-repeat="scalaVersion in scalaVersions | filter:{playVersion:currentPlayVersion.value}:true" ng-if="currentLanguage.value == 'scala' || currentLanguage.value == 'all'">
-          <pre class="code">Dependency: "{{scalaVersion.groupId}}" %% "{{scalaVersion.artifactId}}" % "{{scalaVersion.version}}"</pre>
+          <label>SBT dependency:</label>
+          <pre class="code">"{{scalaVersion.groupId}}" %% "{{scalaVersion.artifactId}}" % "{{scalaVersion.version}}"</pre>
         </div>
     </div>
 </div>

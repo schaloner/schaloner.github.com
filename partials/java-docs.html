@@ -87,10 +87,65 @@
           </p>
 
           <p>The processed point is where our web applications live. In a sense, the high level life cycle is repeated again here, as the request is sent from the container into the application, received by the app, processed and answered. Deadbolt controller constraints occur at the point where the container (the Play server, in this case) hands the request over to the application; Deadbolt templates work during the processing phase as a response body is rendered.</p>
+
+          <p>A basic, but perfectly valid, example of a controller-level constraint is checking is a subject is present.
+<pre>@SubjectPresent
+public class MyController extends Controller {
+  
+  // various action methods, all of which require a subject to be present.
+}</pre>          
+          </p>
+
+          <p>If you only want individual actions within a controller to be protected, apply the constraint at the method level.
+<pre>
+public class MyController extends Controller {
+  
+  public static Result index() {
+   // anyone can see this
+  }
+
+  @SubjectPresent
+  public static Result membersOnly() {
+    // You have be be logged in before this method can be successfully invoked
+  }
+}</pre>
+        </p>
+
+        <h4>Rule specificy</h4>
+        <p>A rule of "most specific" applies - method constraints are applied before class-level constraints, and if the most specific (i.e. method-level) constraint is satisfied, the class-level constraint will not be applied.</p>
+        <p><i class="fa fa-exclamation-triangle"></i>  In the case where a method-level constraint is more specific than a class-level constraint, there is no bubble-up effect.  If the constraint fails for the method, the request fails - the class-level constraint is <strong>NOT</strong> applied as a fall-back.</p>
         <span next-section section="dependencies" label="Dependencies"></span>
       </div>
       <div ng-if="section == 'dependencies'">
         <h3>Dependencies</h3>
+        <h4>Repository</h4>
+        <p>Deadbolt is currently hosted in the Objectify repository. At some point in the future, it will move to Maven Central. In the meantime, you need to add the following to your Play
+        project:
+        <pre class="well">resolvers += Resolver.url("Objectify Play Repository", url("http://schaloner.github.io/releases/"))(Resolver.ivyStylePatterns)</pre>
+        </p>
+
+        <h4>Which version should I use?</h4>
+        <p>To help you choose the correct version to Deadbolt to use, select your preferred language and Play version below.  The necessary SBT dependency will be shown. 
+
+        <div>
+            <label for="currentLanguage" id="currentLanguageLabel">Language:</label>
+            <select ng-model="currentLanguage" ng-options="availableLanguage as availableLanguage.label for availableLanguage in availableLanguages" id="currentLanguage">
+            </select>
+        </div>
+        <div>
+            <label for="playVersion" id="playVersionLabel">Play version:</label>
+            <select ng-model="currentPlayVersion" ng-options="availableVersion as availableVersion.label for availableVersion in availableVersions" id="playVersion">
+            </select>
+        </div>
+        <div ng-repeat="javaVersion in javaVersions | filter:{playVersion:currentPlayVersion.value}:true" ng-if="currentLanguage.value == 'java' || currentLanguage.value == 'all'">
+          <label>SBT dependency:</label>
+          <pre class="code">"{{javaVersion.groupId}}" %% "{{javaVersion.artifactId}}" % "{{javaVersion.version}}"</pre>
+        </div>
+        <div ng-repeat="scalaVersion in scalaVersions | filter:{playVersion:currentPlayVersion.value}:true" ng-if="currentLanguage.value == 'scala' || currentLanguage.value == 'all'">
+          <label>SBT dependency:</label>
+          <pre class="code">"{{scalaVersion.groupId}}" %% "{{scalaVersion.artifactId}}" % "{{scalaVersion.version}}"</pre>
+        </div>
+
         <span next-section section="applicationConf" label="application.conf"></span>
       </div>
       <div ng-if="section == 'applicationConf'">
