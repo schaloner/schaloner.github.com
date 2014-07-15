@@ -351,7 +351,7 @@ deadbolt {
           </tbody>
         </table>
 
-        <button type="button" class="btn btn-link" ng-click="setSection('controllerSubjectNotPresent')">Next - SubjectNotPresent</button>
+        <span next-section section="controllerSubjectNotPresent" label="SubjectNotPresent"></span>
       </div>
       <div ng-if="section == 'controllerSubjectNotPresent'">
         <h3>@SubjectNotPresent</h3>
@@ -403,7 +403,7 @@ deadbolt {
           </tbody>
         </table>
 
-        <button type="button" class="btn btn-link" ng-click="setSection('controllerRestrict')">Next - Restrict</button>
+        <span next-section section="controllerRestrict" label="Restrict"></span>
       </div>
       <div ng-if="section == 'controllerRestrict'">
         <h3>@Restrict</h3>
@@ -457,7 +457,7 @@ deadbolt {
           </tbody>
         </table>
 
-        <button type="button" class="btn btn-link" ng-click="setSection('controllerDynamic')">Next - Dynamic</button>
+        <span next-section section="controllerDynamic" label="Dynamic"></span>
       </div>
       <div ng-if="section == 'controllerDynamic'">
         <h3>@Dynamic</h3>
@@ -521,7 +521,7 @@ deadbolt {
           </tbody>
         </table>
 
-        <button type="button" class="btn btn-link" ng-click="setSection('controllerPattern')">Next - Pattern</button>
+        <span next-section section="controllerPattern" label="Pattern"></span>
       </div>
       <div ng-if="section == 'controllerPattern'">
         <h3>@Pattern</h3>
@@ -590,7 +590,7 @@ deadbolt {
           </tbody>
         </table>
 
-        <button type="button" class="btn btn-link" ng-click="setSection('controllerUnrestricted')">Next - Unrestricted</button>
+        <span next-section section="controllerUnrestricted" label="Unrestricted"></span>
       </div>
       <div ng-if="section == 'controllerUnrestricted'">
         <h3>@Unrestricted</h3>
@@ -636,27 +636,101 @@ deadbolt {
           </tbody>
         </table>
 
-        <button type="button" class="btn btn-link" ng-click="setSection('templateSubjectPresent')">Next - subjectPresent</button>
+        <span next-section section="templateSubjectPresent" label="subjectPresent"></span>
       </div>
       <div ng-if="section == 'templateSubjectPresent'">
         <h3>subjectPresent</h3>
-        <p>In progress</p>
-        <button type="button" class="btn btn-link" ng-click="setSection('templateSubjectNotPresent')">Next - subjectNotPresent</button>
+        <p>Any template content wrapped by <code>subjectPresent</code> will only appear if a subject can be resolved by the current <code>DeadboltHandler</code>.  The <code>DeadboltHandler</code> can be specific or generic, i.e. you can use <code>@subjectPresent()</code> or <code>@subjectPresent(someSpecificDeadboltHandler)</code>.</p>
+        <p>A variation, <code>subjectPresentOr</code>, allows you to specify content to be displayed if the authorisation fails.</p>
+        <p><code>subjectPresent</code> is the template equivalent to the <button type="button" class="btn btn-link" ng-click="setSection('controllerSubjectPresent')">SubjectPresent</button> controller constraint.</p>
+
+        <h4>Imports</h4>
+        <p>To use <code>subjectPresent</code> or <code>subjectPresentOr</code>, add the following import to your template.
+          <pre>@import be.objectify.deadbolt.java.views.html._</pre>
+        </p>
+
+        <h4>Examples</h4>
+        <p>All examples are valid for both <code>subjectPresent</code> and <code>subjectPresentOr</code>.</p>
+        <p><strong>Basic usage</strong>
+<pre>@subjectPresent() {
+  This content will be visible if a subject is present.
+}</pre>
+        </p>
+
+        <p><strong>Fallback content</strong>
+<pre>@subjectPresentOr() {
+  This content will be visible if a subject is present.
+}{
+  This content will be present if no subject is present.
+}</pre>
+        </p>
+
+        <p><strong>Define a <code>DeadboltHandler</code> in the template.</strong>  This is possible, but I recommend against it as it can reduce code re-use.  See the next example for a better approach.
+<pre>@subjectPresent(new com.example.security.FooDeadboltHandler()) {
+  This content will be visible if a subject is present.
+}</pre>
+        </p>
+
+        <p><strong>Pass a <code>DeadboltHandler</code> into the template.</strong>  This provides a more flexible approach to using specific a <code>DeadboltHandler</code>.
+<pre>@(mySpecificDeadboltHandler: be.objectify.deadbolt.java.DeadboltHandler)
+
+@subjectPresent(mySpecificDeadboltHandler) {
+  This content will be visible if a subject is present.
+}</pre>
+        </p>
+        <span next-section section="templateSubjectNotPresent" label="subjectNotPresent"></span>
       </div>
       <div ng-if="section == 'templateSubjectNotPresent'">
         <h3>subjectNotPresent</h3>
-        <p>In progress</p>
-        <button type="button" class="btn btn-link" ng-click="setSection('templateRestrict')">Next - restrict</button>
+        <p>Any template content wrapped by <code>subjectNotPresent</code> will only appear if a subject <strong>cannot</strong> be resolved by the current <code>DeadboltHandler</code>.  The <code>DeadboltHandler</code> can be specific or generic, i.e. you can use <code>@subjectNotPresent()</code> or <code>@subjectNotPresent(someSpecificDeadboltHandler)</code>.</p>
+        <p>A variation, <code>subjectNotPresentOr</code>, allows you to specify content to be displayed if the authorisation fails.</p>
+        <p><code>subjectNotPresent</code> is the template equivalent to the <button type="button" class="btn btn-link" ng-click="setSection('controllerSubjectNotPresent')">SubjectNotPresent</button> controller constraint.</p>
+
+        <h4>Imports</h4>
+        <p>To use <code>subjectNotPresent</code> or <code>subjectNotPresentOr</code>, add the following import to your template.
+          <pre>@import be.objectify.deadbolt.java.views.html._</pre>
+        </p>
+
+        <h4>Examples</h4>
+        <p>All examples are valid for both <code>subjectNotPresent</code> and <code>subjectNotPresentOr</code>.</p>
+        <p><strong>Basic usage</strong>
+<pre>@subjectNotPresent() {
+  This content will be visible if a subject is not present.
+}</pre>
+        </p>
+
+        <p><strong>Fallback content</strong>
+<pre>@subjectNotPresentOr() {
+  This content will be visible if a subject is not present.
+}{
+  This content will be present if a subject is present.
+}</pre>
+        </p>
+
+        <p><strong>Define a <code>DeadboltHandler</code> in the template.</strong>  This is possible, but I recommend against it as it can reduce code re-use.  See the next example for a better approach.
+<pre>@subjectNotPresent(new com.example.security.FooDeadboltHandler()) {
+  This content will be visible if a subject is not present.
+}</pre>
+        </p>
+
+        <p><strong>Pass a <code>DeadboltHandler</code> into the template.</strong>  This provides a more flexible approach to using specific a <code>DeadboltHandler</code>.
+<pre>@(mySpecificDeadboltHandler: be.objectify.deadbolt.java.DeadboltHandler)
+
+@subjectNotPresent(mySpecificDeadboltHandler) {
+  This content will be visible if a subject is not present.
+}</pre>
+        </p>
+        <span next-section section="templateRestrict" label="restrict"></span>
       </div>
       <div ng-if="section == 'templateRestrict'">
         <h3>restrict</h3>
         <p>In progress</p>
-        <button type="button" class="btn btn-link" ng-click="setSection('templateDynamic')">Next - dynamic</button>
+        <span next-section section="templateDynamic" label="dynamic"></span>
       </div>
       <div ng-if="section == 'templateDynamic'">
         <h3>dynamic</h3>
         <p>In progress</p>
-        <button type="button" class="btn btn-link" ng-click="setSection('templatePattern')">Next - pattern</button>
+        <span next-section section="templatePattern" label="pattern"></span>
       </div>
       <div ng-if="section == 'templatePattern'">
         <h3>pattern</h3>
