@@ -102,12 +102,80 @@
       </div>
       <div ng-if="section == 'templateSubjectPresent'">
         <h3>subjectPresent</h3>
-        <p>In progress</p>
+        <p>Any template content wrapped by <code>subjectPresent</code> will only appear if a subject can be resolved by the current <code>DeadboltHandler</code>.</p>
+        <p>A variation, <code>subjectPresentOr</code>, allows you to specify content to be displayed if the authorisation fails.</p>
+        <p><code>subjectPresent</code> is the template equivalent to the <button type="button" class="btn btn-link" ng-click="setSection('controllerSubjectPresent')">SubjectPresent</button> controller constraint.</p>
+
+        <h4>Imports</h4>
+        <p>To use <code>subjectPresent</code> or <code>subjectPresentOr</code>, add the following import to your template.
+          <pre>@import be.objectify.deadbolt.scala.views.html._</pre>
+        </p>
+
+        <h4>Examples</h4>
+        <p>All examples are valid for both <code>subjectPresent</code> and <code>subjectPresentOr</code>.</p>
+        <p><strong>Basic usage</strong>
+<pre>@(deadboltHandler: be.objectify.deadbolt.scala.DeadboltHandler)
+
+@subjectPresent(deadboltHandler) {
+  This content will be visible if a subject is present.
+}</pre>
+        </p>
+
+        <p><strong>Fallback content</strong>
+<pre>@(deadboltHandler: be.objectify.deadbolt.scala.DeadboltHandler)
+
+@subjectPresentOr(deadboltHandler) {
+  This content will be visible if a subject is present.
+}{
+  This content will be present if no subject is present.
+}</pre>
+        </p>
+
+        <p><strong>Define a <code>DeadboltHandler</code> in the template.</strong>  This is possible, but I recommend against it as it can reduce code re-use.
+<pre>@subjectPresent(new com.example.security.FooDeadboltHandler()) {
+  This content will be visible if a subject is present.
+}</pre>
+        </p>
+
         <span next-section section="templateSubjectNotPresent" label="subjectNotPresent"></span>
       </div>
       <div ng-if="section == 'templateSubjectNotPresent'">
         <h3>subjectNotPresent</h3>
-        <p>In progress</p>
+        <p>Any template content wrapped by <code>subjectNotPresent</code> will only appear if a subject <strong>cannot</strong> be resolved by the current <code>DeadboltHandler</code>.</p>
+        <p>A variation, <code>subjectNotPresentOr</code>, allows you to specify content to be displayed if the authorisation fails.</p>
+        <p><code>subjectNotPresent</code> is the template equivalent to the <button type="button" class="btn btn-link" ng-click="setSection('controllerSubjectNotPresent')">SubjectNotPresent</button> controller constraint.</p>
+
+        <h4>Imports</h4>
+        <p>To use <code>subjectNotPresent</code> or <code>subjectNotPresentOr</code>, add the following import to your template.
+          <pre>@import be.objectify.deadbolt.scala.views.html._</pre>
+        </p>
+
+        <h4>Examples</h4>
+        <p>All examples are valid for both <code>subjectNotPresent</code> and <code>subjectNotPresentOr</code>.</p>
+        <p><strong>Basic usage</strong>
+<pre>@(deadboltHandler: be.objectify.deadbolt.scala.DeadboltHandler)
+
+@subjectNotPresent(deadboltHandler) {
+  This content will be visible if a subject is not present.
+}</pre>
+        </p>
+
+        <p><strong>Fallback content</strong>
+<pre>@(deadboltHandler: be.objectify.deadbolt.scala.DeadboltHandler)
+
+@subjectNotPresentOr(deadboltHandler) {
+  This content will be visible if a subject is not present.
+}{
+  This content will be present if a subject is present.
+}</pre>
+        </p>
+
+        <p><strong>Define a <code>DeadboltHandler</code> in the template.</strong>  This is possible, but I recommend against it as it can reduce code re-use.  See the next example for a better approach.
+<pre>@subjectNotPresent(new com.example.security.FooDeadboltHandler()) {
+  This content will be visible if a subject is not present.
+}</pre>
+        </p>
+
         <span next-section section="templateRestrict" label="restrict"></span>
       </div>
       <div ng-if="section == 'templateRestrict'">
