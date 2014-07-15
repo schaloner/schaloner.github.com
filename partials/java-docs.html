@@ -193,7 +193,7 @@ public class MyController extends Controller {
 }</pre>
 
         <h4>deadbolt.java.handlers</h4>
-        <p>No, that's not a typo and this is not accidentally repeated content.  All Deadbolt controller constraints have a <code>handlerKey</code> attribute.  The value of that attibute, if it matches the key in the <code>deadbolt.java.handlers</code> object, will be used as the <code>DeadboltHandler</code> for the request.</p>
+        <p>No, that's not a typo and this is not accidentally repeated content.  All Deadbolt controller constraints have a <code>handlerKey</code> attribute.  The value of that attribute, if it matches the key in the <code>deadbolt.java.handlers</code> object, will be used as the <code>DeadboltHandler</code> for the request.</p>
 
 <pre>deadbolt {
     java {
@@ -640,22 +640,27 @@ deadbolt {
       </div>
       <div ng-if="section == 'templateSubjectPresent'">
         <h3>subjectPresent</h3>
+        <p>In progress</p>
         <button type="button" class="btn btn-link" ng-click="setSection('templateSubjectNotPresent')">Next - subjectNotPresent</button>
       </div>
       <div ng-if="section == 'templateSubjectNotPresent'">
         <h3>subjectNotPresent</h3>
+        <p>In progress</p>
         <button type="button" class="btn btn-link" ng-click="setSection('templateRestrict')">Next - restrict</button>
       </div>
       <div ng-if="section == 'templateRestrict'">
         <h3>restrict</h3>
+        <p>In progress</p>
         <button type="button" class="btn btn-link" ng-click="setSection('templateDynamic')">Next - dynamic</button>
       </div>
       <div ng-if="section == 'templateDynamic'">
         <h3>dynamic</h3>
+        <p>In progress</p>
         <button type="button" class="btn btn-link" ng-click="setSection('templatePattern')">Next - pattern</button>
       </div>
       <div ng-if="section == 'templatePattern'">
         <h3>pattern</h3>
+        <p>In progress</p>
       </div>
   </div>
 </div>
