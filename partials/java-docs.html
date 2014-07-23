@@ -699,7 +699,7 @@ deadbolt {
 }</pre>
         </p>
 
-        <p><strong>Pass a <code>DeadboltHandler</code> into the template.</strong>  This provides a more flexible approach to using specific a <code>DeadboltHandler</code>.
+        <p><strong>Pass a <code>DeadboltHandler</code> into the template.</strong>  This provides a more flexible approach to hard-coding the <code>DeadboltHandler</code> in the template.
 <pre>@(mySpecificDeadboltHandler: be.objectify.deadbolt.java.DeadboltHandler)
 
 @subjectPresent(mySpecificDeadboltHandler) {
@@ -741,7 +741,7 @@ deadbolt {
 }</pre>
         </p>
 
-        <p><strong>Pass a <code>DeadboltHandler</code> into the template.</strong>  This provides a more flexible approach to using specific a <code>DeadboltHandler</code>.
+        <p><strong>Pass a <code>DeadboltHandler</code> into the template.</strong>  This provides a more flexible approach to hard-coding the <code>DeadboltHandler</code> in the template.
 <pre>@(mySpecificDeadboltHandler: be.objectify.deadbolt.java.DeadboltHandler)
 
 @subjectNotPresent(mySpecificDeadboltHandler) {
@@ -795,19 +795,13 @@ deadbolt {
 
         <h4>Examples</h4>
         <p><strong>Simple usage</strong>
-          <pre>@import be.objectify.deadbolt.java.views.html._
-@import be.objectify.deadbolt.core.utils.TemplateUtils._
-
-@restrict(la(as("foo"))) {
+          <pre>@restrict(la(as("foo"))) {
   This content will be visible if the user has the "foo" role.
 }</pre>
         </p>
 
           <p><strong>Fallback content</strong>
-          <pre>@import be.objectify.deadbolt.java.views.html._
-@import be.objectify.deadbolt.core.utils.TemplateUtils._
-
-@restrictOr(la(as("foo"))) {
+          <pre>@restrictOr(la(as("foo"))) {
   This content will be visible if the user has the "foo" role.
 }{
   This content will be visible if the user don't have the "foo" role.
@@ -815,21 +809,111 @@ deadbolt {
           </p>
 
           <p><strong>ORing roles</strong>
-          <pre>@import be.objectify.deadbolt.java.views.html._
-@import be.objectify.deadbolt.core.utils.TemplateUtils._
-
-@restrictOr(la(as("foo", "bar"), as("hurdy"))) {
+          <pre>@restrictOr(la(as("foo", "bar"), as("hurdy"))) {
   This content will be visible if the user has the "foo" AND "bar" roles, or the "hurdy" role.
 }{
   This content will be visible if the authorisation fails.
 }</pre>
           </p>
-        <span next-section section="templateDynamic" label="dynamic"></span>
+
+          <p><strong>Define a <code>DeadboltHandler</code> in the template.</strong>  This is possible, but I recommend against it as it can reduce code re-use.  See the next example for a better approach.
+          <pre>@(mySpecificDeadboltHandler: be.objectify.deadbolt.java.DeadboltHandler)
+
+@restrictOr(la(as("foo", "bar"), as("hurdy")), mySpecificDeadboltHandler) {
+  This content will be visible if the user has the "foo" AND "bar" roles, or the "hurdy" role.
+}{
+  This content will be visible if the authorisation fails.
+}</pre>
+          </p>
+
+          <p><strong>Pass a <code>DeadboltHandler</code> into the template.</strong>  This provides a more flexible approach to hard-coding the <code>DeadboltHandler</code> in the template.
+          <pre>@(mySpecificDeadboltHandler: be.objectify.deadbolt.java.DeadboltHandler)
+
+@restrictOr(la(as("foo", "bar"), as("hurdy")), mySpecificDeadboltHandler) {
+  This content will be visible if the user has the "foo" AND "bar" roles, or the "hurdy" role.
+}{
+  This content will be visible if the authorisation fails.
+}</pre>
+          </p>
+          <span next-section section="templateDynamic" label="dynamic"></span>
       </div>
       <div ng-if="section == 'templateDynamic'">
         <h3>dynamic</h3>
-        <p>In progress</p>
-        <span next-section section="templatePattern" label="pattern"></span>
+          <p><code>dynamic</code> allows you to use custom constraints to determine if the content it wraps should be included in the response.</p>
+
+          <p>A variation, <code>dynamicOr</code>, allows you to specify content to be displayed if the authorisation fails.</p>
+
+          <h4>Imports</h4>
+          <p>To use <code>restrict</code> you'll need to import a couple of things.
+          <pre>@import be.objectify.deadbolt.java.views.html._
+@import be.objectify.deadbolt.core.utils.TemplateUtils._</pre>
+          </p>
+
+          <h4>Parameters</h4>
+          <table class="table table-striped table-bordered">
+              <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                  <td>name</td>
+                  <td>String</td>
+                  <td>The name of the custom authorization constraint.</td>
+              </tr>
+              <tr>
+                  <td>meta</td>
+                  <td>String</td>
+                  <td>Additional information that will be passed into <code>DynamicResourceHandler#isAllowed</code>.</td>
+              </tr>
+              <tr>
+                  <td>handler</td>
+                  <td>be.objectify.deadbolt.java.DeadboltHandler</td>
+                  <td>A <code>DeadboltHandler</code> to use when evaluating the authorization.  If null, the default <code>DeadboltHandler</code> will be used.</td>
+              </tr>
+              </tbody>
+          </table>
+
+          <h4>Examples</h4>
+          <p><strong>Simple usage</strong>
+          <pre>@dynamic(name="foo") {
+  This content will be visible if allowed by the custom constaint "foo", as executed by the <code>DynamicResourceHandler</code> obtained from the current <code>DeadboltHandler</code>.
+}</pre>
+          </p>
+
+          <p><strong>Fallback content</strong>
+          <pre>@dynamicOr(name="foo") {
+  This content will be visible if allowed by the custom constaint "foo", as executed by the <code>DynamicResourceHandler</code> obtained from the current <code>DeadboltHandler</code>.
+}{
+  This content will be visible if the authorization fails.
+}</pre>
+          </p>
+
+          <p><strong>Provide meta information</strong>
+          <pre>@dynamicOr(name="foo", meta="bar") {
+  This content will be visible if the custom constraint "foo" allows it.
+}{
+  This content will be visible if the authorization fails.
+}</pre>
+          </p>
+
+          <p><strong>Define a <code>DeadboltHandler</code> in the template.</strong>  This is possible, but I recommend against it as it can reduce code re-use.  See the next example for a better approach.
+          <pre>@dynamic(name="foo", handler=new com.example.SomeSpecificDeadboltHandler()) {
+  This content will be visible if the custom constraint "foo" allows it.
+}</pre>
+          </p>
+
+          <p><strong>Pass a <code>DeadboltHandler</code> into the template.</strong>  This provides a more flexible approach to hard-coding the <code>DeadboltHandler</code> in the template.
+          <pre>@(mySpecificDeadboltHandler: be.objectify.deadbolt.java.DeadboltHandler)
+
+@dynamic(name="foo", handler=mySpecificDeadboltHandler) {
+  This content will be visible if the custom constraint "foo" allows it.
+}</pre>
+          </p>
+          <span next-section section="templatePattern" label="pattern"></span>
       </div>
       <div ng-if="section == 'templatePattern'">
         <h3>pattern</h3>
