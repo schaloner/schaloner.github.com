@@ -180,7 +180,26 @@
       </div>
       <div ng-if="section == 'templateRestrict'">
         <h3>restrict</h3>
-        <p>In progress</p>
+        <p><code>restrict</code> uses an ANDed set of roles within an array to determine if the content it wraps should be included in the response.  For example, a user with the roles "foo" and "bar" could see <code>restrict</code>-protected content that specified any of the following roles:
+          <ul>
+            <li>foo</li>
+            <li>bar</li>
+            <li>foo AND bar</li>
+          </ul>
+        </p>
+        <p>However, a <code>restrict</code> that required "foo", "bar" and "hurdy" would not allow the protected content into the response.</p>
+        <p>If multiple arrays of roles are defined, the relationship between the arrays is OR.</p>
+
+        <h4>Imports</h4>
+        <p>To use <code>restrict</code> you'll need to import a couple of things.
+          <<pre>@import be.objectify.deadbolt.java.views.html._
+@import be.objectify.deadbolt.core.utils.TemplateUtils._</pre>
+          The <code>TemplateUtils</code> import gives us some useful methods for creating the list of arrays and arrays of strings used to define roles.
+        </p>
+
+        <<h4>Examples</h4>
+        <<p></p>
+
         <span next-section section="templateDynamic" label="dynamic"></span>
       </div>
       <div ng-if="section == 'templateDynamic'">
