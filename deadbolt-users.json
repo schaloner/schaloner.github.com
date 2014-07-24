@@ -5,5 +5,12 @@
         "image":"https://carambla.com/assets2/images/logo-carambla.png", 
         "location":"Gent, Belgium", 
         "description":"The Smart Marketplace for Parking."
+    },
+    {
+        "name":"f5280",
+        "url":"http://f5280.com/",
+        "image":"http://f5280.com/assets/images/logo.png",
+        "location":"Aurora, Colorado, USA",
+        "description":"A digital asset management system for photographers who chose to host their own website and their client's portfolios."
     }
 ]
