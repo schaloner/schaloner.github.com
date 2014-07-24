@@ -140,7 +140,7 @@
         <p><strong>Basic usage</strong>
 <pre>@(deadboltHandler: be.objectify.deadbolt.scala.DeadboltHandler)
 
-@subjectPresent(deadboltHandler) {
+@subjectPresent(handler=deadboltHandler) {
   This content will be visible if a subject is present.
 }</pre>
         </p>
@@ -148,7 +148,7 @@
         <p><strong>Fallback content</strong>
 <pre>@(deadboltHandler: be.objectify.deadbolt.scala.DeadboltHandler)
 
-@subjectPresentOr(deadboltHandler) {
+@subjectPresentOr(handler=deadboltHandler) {
   This content will be visible if a subject is present.
 }{
   This content will be present if no subject is present.
@@ -156,7 +156,7 @@
         </p>
 
         <p><strong>Define a <code>DeadboltHandler</code> in the template.</strong>  This is possible, but I recommend against it as it can reduce code re-use.
-<pre>@subjectPresent(new com.example.security.FooDeadboltHandler()) {
+<pre>@subjectPresent(handler=new com.example.security.FooDeadboltHandler()) {
   This content will be visible if a subject is present.
 }</pre>
         </p>
@@ -179,7 +179,7 @@
         <p><strong>Basic usage</strong>
 <pre>@(deadboltHandler: be.objectify.deadbolt.scala.DeadboltHandler)
 
-@subjectNotPresent(deadboltHandler) {
+@subjectNotPresent(handler=deadboltHandler) {
   This content will be visible if a subject is not present.
 }</pre>
         </p>
@@ -187,7 +187,7 @@
         <p><strong>Fallback content</strong>
 <pre>@(deadboltHandler: be.objectify.deadbolt.scala.DeadboltHandler)
 
-@subjectNotPresentOr(deadboltHandler) {
+@subjectNotPresentOr(handler=deadboltHandler) {
   This content will be visible if a subject is not present.
 }{
   This content will be present if a subject is present.
@@ -195,7 +195,7 @@
         </p>
 
         <p><strong>Define a <code>DeadboltHandler</code> in the template.</strong>  This is possible, but I recommend against it as it can reduce code re-use.
-<pre>@subjectNotPresent(new com.example.security.FooDeadboltHandler()) {
+<pre>@subjectNotPresent(handler=new com.example.security.FooDeadboltHandler()) {
   This content will be visible if a subject is not present.
 }</pre>
         </p>
@@ -235,7 +235,7 @@
               <tr>
                   <td>handler</td>
                   <td>be.objectify.deadbolt.scala.DeadboltHandler</td>
-                  <td>A <code>DeadboltHandler</code> to use when evaluating the authorization.  If null, the default <code>DeadboltHandler</code> will be used.</td>
+                  <td>A <code>DeadboltHandler</code> to use when evaluating the authorization.</td>
               </tr>
               <tr>
                   <td>roles</td>
@@ -277,7 +277,72 @@
       </div>
       <div ng-if="section == 'templateDynamic'">
         <h3>dynamic</h3>
-        <p>In progress</p>
+          <p><code>dynamic</code> allows you to use custom constraints to determine if the content it wraps should be included in the response.</p>
+
+          <p>A variation, <code>dynamicOr</code>, allows you to specify content to be displayed if the authorisation fails.</p>
+
+          <h4>Imports</h4>
+          <p>To use <code>dynamic</code> or <code>dynamicOr</code>, add the following import to your template.
+          <pre>@import be.objectify.deadbolt.scala.views.html._</pre>
+          </p>
+
+          <h4>Parameters</h4>
+          <table class="table table-striped table-bordered">
+              <thead>
+              <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Description</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                  <td>handler</td>
+                  <td>be.objectify.deadbolt.scala.DeadboltHandler</td>
+                  <td>A <code>DeadboltHandler</code> to use when evaluating the authorization.</td>
+              </tr>
+              <tr>
+                  <td>name</td>
+                  <td>String</td>
+                  <td>The name of the custom authorization constraint.</td>
+              </tr>
+              <tr>
+                  <td>meta</td>
+                  <td>String</td>
+                  <td>Additional information that will be passed into <code>DynamicResourceHandler#isAllowed</code>.</td>
+              </tr>
+              </tbody>
+          </table>
+
+          <h4>Examples</h4>
+          <p><strong>Simple usage</strong>
+          <pre>@(deadboltHandler: be.objectify.deadbolt.scala.DeadboltHandler)
+
+@dynamic(handler=deadboltHandler, name="foo") {
+  This content will be visible if allowed by the custom constaint "foo", as executed by the <code>DynamicResourceHandler</code> obtained from the current <code>DeadboltHandler</code>.
+}</pre>
+          </p>
+
+          <p><strong>Fallback content</strong>
+          <pre>@(deadboltHandler: be.objectify.deadbolt.scala.DeadboltHandler)
+
+@dynamicOr(handler=deadboltHandler, name="foo") {
+  This content will be visible if allowed by the custom constaint "foo", as executed by the <code>DynamicResourceHandler</code> obtained from the current <code>DeadboltHandler</code>.
+}{
+  This content will be visible if the authorization fails.
+}</pre>
+          </p>
+
+          <p><strong>Provide meta information</strong>
+          <pre>@(deadboltHandler: be.objectify.deadbolt.scala.DeadboltHandler)
+
+@dynamicOr(handler=deadboltHandler, name="foo", meta="bar") {
+  This content will be visible if the custom constraint "foo" allows it.
+}{
+  This content will be visible if the authorization fails.
+}</pre>
+          </p>
         <span next-section section="templatePattern" label="pattern"></span>
       </div>
       <div ng-if="section == 'templatePattern'">
