@@ -95,6 +95,10 @@ ul.footer-list {
   width:228px;
 }
 
+.centerText {
+    text-align: center;
+}
+
 @media (max-width: 767px) {
     #footer {
       margin-left: -20px;

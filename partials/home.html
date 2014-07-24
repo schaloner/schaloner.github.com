@@ -61,7 +61,7 @@
 </div>
 <div class="row" ng-repeat="userSubset in choppedUsers">
     <div class="col-md-1"></div>
-    <div class="col-md-2 col-md-offset-1" ng-repeat="deadboltUser in userSubset">
+    <div class="col-md-2 col-md-offset-1 centerText" ng-repeat="deadboltUser in userSubset">
         <a href="{{deadboltUser.url}}" target="_new"><h4 class="deadboltUserName">{{deadboltUser.name}}</h4></a>
         <a href="{{deadboltUser.url}}" target="_new"><img ng-src="{{deadboltUser.image}}" title="{{deadboltUser.name}}"/></a>
         <div>{{deadboltUser.description}}</div>
