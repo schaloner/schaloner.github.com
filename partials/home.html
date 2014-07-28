@@ -25,7 +25,7 @@
     <div class="col-md-8 col-md-offset-2">
         <h3>Repository</h3>
         <p>Deadbolt is currently hosted in the Objectify repository. At some point in the future, it will move to Maven Central. In the meantime, you need to add the following to your Play
-        project:
+        <code>build.sbt</code>:
           <pre class="well">resolvers += Resolver.url("Objectify Play Repository", url("http://deadbolt.ws/releases/"))(Resolver.ivyStylePatterns)</pre></p>
     </div>
 </div>
@@ -53,7 +53,57 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-4 col-md-offset-2">
+        <h3>Java build.sbt example</h3>
+
+        <pre class="code">
+name := """example-java-project"""
+
+version := "1.0-SNAPSHOT"
+
+lazy val root = (project in file(".")).enablePlugins(PlayJava)
+
+scalaVersion := "2.11.1"
+
+libraryDependencies ++= Seq(
+  javaJdbc,
+  javaEbean,
+  cache,
+  javaWs,
+  // example version, use the "which version..." tool to determine the correct one
+  "be.objectify" %% "deadbolt-java" % "2.3.1"
+)
+
+resolvers += Resolver.url("Objectify Play Repository", url("http://deadbolt.ws/releases/"))(Resolver.ivyStylePatterns)
+        </pre>
+    </div>
+    <div class="col-md-4">
+        <h3>Scala build.sbt example</h3>
+
+        <pre class="code">
+name := """example-scala-project"""
+
+version := "1.0-SNAPSHOT"
+
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
+
+scalaVersion := "2.11.1"
+
+libraryDependencies ++= Seq(
+  jdbc,
+  anorm,
+  cache,
+  ws,
+  // example version, use the "which version..." tool to determine the correct one
+  "be.objectify" %% "deadbolt-scala" % "2.3.1"
+)
+
+resolvers += Resolver.url("Objectify Play Repository", url("http://deadbolt.ws/releases/"))(Resolver.ivyStylePatterns)
+        </pre>
+    </div>
 </div>
+
 <div class="row">
     <div class="col-md-10 col-md-offset-2">
         <h2>Who's using Deadbolt?</h2>

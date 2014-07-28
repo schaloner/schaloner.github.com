@@ -48,8 +48,7 @@
       <div ng-if="section == 'dependencies'">
         <h3>Dependencies</h3>
         <h4>Repository</h4>
-        <p>Deadbolt is currently hosted in the Objectify repository. At some point in the future, it will move to Maven Central. In the meantime, you need to add the following to your Play
-        project:
+        <p>Deadbolt is currently hosted in the Objectify repository. At some point in the future, it will move to Maven Central. In the meantime, you need to add the following to your Play <code>build.sbt</code>:
         <pre class="well">resolvers += Resolver.url("Objectify Play Repository", url("http://deadbolt.ws/releases/"))(Resolver.ivyStylePatterns)</pre>
         </p>
 
@@ -74,6 +73,32 @@
           <label>SBT dependency:</label>
           <pre class="code">"{{scalaVersion.groupId}}" %% "{{scalaVersion.artifactId}}" % "{{scalaVersion.version}}"</pre>
         </div>
+
+        <div>
+          <h3>Scala build.sbt example</h3>
+
+          <pre class="code">
+name := """example-scala-project"""
+
+version := "1.0-SNAPSHOT"
+
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
+
+scalaVersion := "2.11.1"
+
+libraryDependencies ++= Seq(
+  jdbc,
+  anorm,
+  cache,
+  ws,
+  // example version, use the "which version..." tool to determine the correct one
+  "be.objectify" %% "deadbolt-scala" % "2.3.1"
+)
+
+resolvers += Resolver.url("Objectify Play Repository", url("http://deadbolt.ws/releases/"))(Resolver.ivyStylePatterns)
+          </pre>
+        </div>
+
         <span next-section section="controllerSubjectPresent" label="SubjectPresent"></span>
       </div>
       <div ng-if="section == 'controllerSubjectPresent'">

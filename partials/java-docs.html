@@ -122,8 +122,7 @@ public class MyController extends Controller {
       <div ng-if="section == 'dependencies'">
         <h3>Dependencies</h3>
         <h4>Repository</h4>
-        <p>Deadbolt is currently hosted in the Objectify repository. At some point in the future, it will move to Maven Central. In the meantime, you need to add the following to your Play
-        project:
+        <p>Deadbolt is currently hosted in the Objectify repository. At some point in the future, it will move to Maven Central. In the meantime, you need to add the following to your Play <code>build.sbt</code>:
         <pre class="well">resolvers += Resolver.url("Objectify Play Repository", url("http://deadbolt.ws/releases/"))(Resolver.ivyStylePatterns)</pre>
         </p>
 
@@ -148,6 +147,32 @@ public class MyController extends Controller {
           <label>SBT dependency:</label>
           <pre class="code">"{{scalaVersion.groupId}}" %% "{{scalaVersion.artifactId}}" % "{{scalaVersion.version}}"</pre>
         </div>
+
+          <div>
+              <h3>build.sbt example</h3>
+
+              <pre class="code">
+name := """example-java-project"""
+
+version := "1.0-SNAPSHOT"
+
+lazy val root = (project in file(".")).enablePlugins(PlayJava)
+
+scalaVersion := "2.11.1"
+
+libraryDependencies ++= Seq(
+  javaJdbc,
+  javaEbean,
+  cache,
+  javaWs,
+  // example version, use the "which version..." tool to determine the correct one
+  "be.objectify" %% "deadbolt-java" % "2.3.1"
+)
+
+resolvers += Resolver.url("Objectify Play Repository", url("http://deadbolt.ws/releases/"))(Resolver.ivyStylePatterns)
+              </pre>
+
+          </div>
 
         <span next-section section="applicationConf" label="application.conf"></span>
       </div>
