@@ -7,6 +7,7 @@ var deadboltControllers = angular.module('deadboltControllers', []);
 function setMenuChoice(activeId) {
     $('.menuLink').removeClass('active');
     $('#'+activeId).addClass('active').blur();
+    $('html, body').animate({scrollTop: 0}, 'fast');
 }
 
 deadboltControllers.controller('HomeCtrl', ['$scope', 'Version', 'PlayVersions', 'DeadboltUsers',
