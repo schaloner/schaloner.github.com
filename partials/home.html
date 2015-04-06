@@ -99,9 +99,10 @@ libraryDependencies ++= Seq(
   cache,
   ws,
   // example version, use the "which version..." tool to determine the correct one
-  "be.objectify" %% "deadbolt-scala" % "2.3.1"
+  "be.objectify" %% "deadbolt-scala" % "2.3.3"
 )
 
+// For versions prior to 2.3.2, you need to add the Objectity repository
 resolvers += Resolver.url("Objectify Play Repository", url("http://deadbolt.ws/releases/"))(Resolver.ivyStylePatterns)
         </pre>
     </div>
