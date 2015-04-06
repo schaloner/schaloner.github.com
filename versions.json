@@ -25,14 +25,8 @@
             "artifactId": "deadbolt-java"
         },
         {
-            "playVersion": "2.3.0",
-            "version": "2.3.0-RC1",
-            "groupId": "be.objectify",
-            "artifactId": "deadbolt-java"
-        },
-        {
-            "playVersion": "2.3.1",
-            "version": "2.3.1",
+            "playVersion": "2.3",
+            "version": "2.3.3",
             "groupId": "be.objectify",
             "artifactId": "deadbolt-java"
         }
@@ -63,14 +57,8 @@
             "artifactId": "deadbolt-scala"
         },
         {
-            "playVersion": "2.3.0",
-            "version": "2.3.0-RC1",
-            "groupId": "be.objectify",
-            "artifactId": "deadbolt-scala"
-        },
-        {
-            "playVersion": "2.3.1",
-            "version": "2.3.1",
+            "playVersion": "2.3",
+            "version": "2.3.3",
             "groupId": "be.objectify",
             "artifactId": "deadbolt-scala"
         }

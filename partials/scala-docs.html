@@ -48,7 +48,7 @@
       <div ng-if="section == 'dependencies'">
         <h3>Dependencies</h3>
         <h4>Repository</h4>
-        <p><As of Deadbolt 2.3.2, you no longer need to add the Objectify respository as the artifacts are available via Maven Central.<p>
+        <p>As of Deadbolt 2.3.2, you no longer need to add the Objectify repository as the artifacts are available via Maven Central.<p>
 
         <p>For versions prior to 2.3.2, Deadbolt is hosted in the Objectify repository. so you need to add the following to your Play
         <code>build.sbt</code>:
@@ -94,10 +94,11 @@ libraryDependencies ++= Seq(
   cache,
   ws,
   // example version, use the "which version..." tool to determine the correct one
-  "be.objectify" %% "deadbolt-scala" % "2.3.1"
+  "be.objectify" %% "deadbolt-scala" % "2.3.3"
 )
 
-resolvers += Resolver.url("Objectify Play Repository", url("http://deadbolt.ws/releases/"))(Resolver.ivyStylePatterns)
+// For versions prior to 2.3.2, you need to add the Objectity repository
+//resolvers += Resolver.url("Objectify Play Repository", url("http://deadbolt.ws/releases/"))(Resolver.ivyStylePatterns)
           </pre>
         </div>
 
