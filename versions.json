@@ -29,6 +29,12 @@
             "version": "2.3.3",
             "groupId": "be.objectify",
             "artifactId": "deadbolt-java"
+        },
+        {
+            "playVersion": "2.4.0",
+            "version": "2.4.0-SNAPSHOT",
+            "groupId": "be.objectify",
+            "artifactId": "deadbolt-java"
         }
     ],
     "scala": [
@@ -59,6 +65,12 @@
         {
             "playVersion": "2.3",
             "version": "2.3.3",
+            "groupId": "be.objectify",
+            "artifactId": "deadbolt-scala"
+        },
+        {
+            "playVersion": "2.4.0",
+            "version": "2.4.0-SNAPSHOT",
             "groupId": "be.objectify",
             "artifactId": "deadbolt-scala"
         }
