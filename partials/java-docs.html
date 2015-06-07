@@ -830,9 +830,8 @@ deadbolt {
           </p>
 
           <p><strong>Define a <code>DeadboltHandler</code> in the template.</strong>  This is possible, but I recommend against it as it can reduce code re-use.  See the next example for a better approach.
-          <pre>@(mySpecificDeadboltHandler: be.objectify.deadbolt.java.DeadboltHandler)
-
-@restrictOr(la(as("foo", "bar"), as("hurdy")), mySpecificDeadboltHandler) {
+          <pre>
+@restrictOr(la(as("foo", "bar"), as("hurdy")), handler=new com.example.SomeSpecificDeadboltHandler()) {
   This content will be visible if the user has the "foo" AND "bar" roles, or the "hurdy" role.
 }{
   This content will be visible if the authorisation fails.
