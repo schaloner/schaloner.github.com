@@ -70,7 +70,7 @@
         },
         {
             "playVersion": "2.4.0",
-            "version": "2.4.0-SNAPSHOT",
+            "version": "2.4.0.1",
             "groupId": "be.objectify",
             "artifactId": "deadbolt-scala"
         }
