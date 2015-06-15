@@ -6,6 +6,7 @@
             <div class="panel-body">
                 <ul>
                     <li><button type="button" class="btn btn-link" ng-click="setSection('intro')">Intro</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('quickstart')">Quick start</button></li>
                 </ul>
             </div>
             <div class="panel-heading">Configuration</div>
@@ -43,6 +44,100 @@
       <div ng-if="section == 'intro'">
         <h3>Intro</h3>
         <p>In progress</p>
+        <span next-section section="quickstart" label="Quick start"></span>
+      </div>
+      <div ng-if="section == 'quickstart'">
+        <h3>Quick start</h3>
+        <p>
+          Add the dependency to your build:
+          <pre class="code">"be.objectify" %% "deadbolt-scala" % "2.4.0.1"</pre>
+        </p>
+        <p>
+          Add the Deadbolt module to your Play application:
+          <pre class="code">
+play {
+    modules {
+        enabled += be.objectify.deadbolt.scala.DeadboltModule
+    }
+}            
+          </pre>
+        </p>
+        <p>
+          Implement the Subject, Role and Permission traits.
+          <ul>
+            <li>Subject represents, typically, a user</li>
+            <li>A Role is a single system privilege, e.g. admin, user and so on. A subject can have zero or more roles.</li>
+            <li>A Permission is a can be used with regular expression matching, e.g. a subject with a permission of printers.admin can access a resource constrained to printers.*, *.admin, etc. A subject can have zero or more permissions.</li>
+          </ul>
+        </p>
+        <p>
+          Implement the be.objectify.deadbolt.scala.DeadboltHandler trait. This implementation (or implementations - you can more than one) is used to
+          <ul>
+            <li>get the current user - getSubject</li>
+            <li>run a pre-authorization task that can block further execution - beforeAuthCheck</li>
+            <li>handle authorization failure - onAuthFailure</li>
+            <li>provide a hook into the dynamic constraint types - getDynamicResourceHandler</li>
+          </ul>
+        </p>
+        <p>
+          You only need to implement be.objectify.deadbolt.scala.DynamicResourceHandler if you're planning to use Dynamic or Pattern.CUSTOM constraints. This will be covered in detail in another section.
+        </p>
+        <p>
+          Implement the be.objectify.deadbolt.scala.HandlerCache trait. This is used by Deadbolt to obtain instances of DeadboltHandlers, and has two concepts
+          <ul>
+            <li>A default handler. You can always use a specific handler in a template or controller, but if nothing is specified a well-known instance will be used.</li>
+            <li>Named handlers.</li>
+          </ul>
+        </p>
+        <p>
+          An example implementation follows, based on the sample app.
+          <pre class="code">
+@Singleton
+class MyHandlerCache extends HandlerCache {
+    val defaultHandler: DeadboltHandler = new MyDeadboltHandler
+
+    // HandlerKeys is an user-defined object, containing instances of a case class that extends HandlerKey  
+    val handlers: Map[Any, DeadboltHandler] = Map(HandlerKeys.defaultHandler -> defaultHandler,
+                                                  HandlerKeys.altHandler -> new MyDeadboltHandler(Some(MyAlternativeDynamicResourceHandler)),
+                                                  HandlerKeys.userlessHandler -> new MyUserlessDeadboltHandler)
+
+    // Get the default handler.
+    override def apply(): DeadboltHandler = defaultHandler
+
+    // Get a named handler
+    override def apply(handlerKey: HandlerKey): DeadboltHandler = handlers(handlerKey)
+}            
+          </pre>
+        </p>
+        <p>
+          Finally, expose your handlers to Deadbolt. To do this, you will need to create a small module that binds your handler cache by type...
+          <pre class="code">
+package com.example.modules
+
+import be.objectify.deadbolt.scala.cache.HandlerCache
+import play.api.inject.{Binding, Module}
+import play.api.{Configuration, Environment}
+import com.example.security.MyHandlerCache
+
+class CustomDeadboltHook extends Module {
+    override def bindings(environment: Environment, configuration: Configuration): Seq[Binding[_]] = Seq(
+        bind[HandlerCache].to[MyHandlerCache]
+    )
+}            
+          </pre>
+          ...and add it to your application.conf
+          <pre class="code">
+play {
+    modules {
+        enabled += be.objectify.deadbolt.scala.DeadboltModule
+        enabled += com.example.modules.CustomDeadboltHook
+    }
+}            
+          </pre>
+        </p>
+        <p>
+          You're now ready to secure access to controller functions and templates in your Play 2 application.
+        </p>
         <span next-section section="dependencies" label="Dependencies"></span>
       </div>
       <div ng-if="section == 'dependencies'">
