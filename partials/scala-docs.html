@@ -64,27 +64,27 @@ play {
           </pre>
         </p>
         <p>
-          Implement the Subject, Role and Permission traits.
+          Implement the <code>Subject</code>, <code>Role</code> and <code>Permission</code> traits.
           <ul>
-            <li>Subject represents, typically, a user</li>
-            <li>A Role is a single system privilege, e.g. admin, user and so on. A subject can have zero or more roles.</li>
-            <li>A Permission is a can be used with regular expression matching, e.g. a subject with a permission of printers.admin can access a resource constrained to printers.*, *.admin, etc. A subject can have zero or more permissions.</li>
+            <li><code>Subject</code> represents, typically, a user</li>
+            <li>A <code>Role</code> is a single system privilege, e.g. admin, user and so on. A subject can have zero or more roles.</li>
+            <li>A <code>Permission</code> is a can be used with regular expression matching, e.g. a subject with a permission of printers.admin can access a resource constrained to printers.*, *.admin, etc. A subject can have zero or more permissions.</li>
           </ul>
         </p>
         <p>
-          Implement the be.objectify.deadbolt.scala.DeadboltHandler trait. This implementation (or implementations - you can more than one) is used to
+          Implement the <code>be.objectify.deadbolt.scala.DeadboltHandler</code> trait. This implementation (or implementations - you can more than one) is used to
           <ul>
-            <li>get the current user - getSubject</li>
-            <li>run a pre-authorization task that can block further execution - beforeAuthCheck</li>
-            <li>handle authorization failure - onAuthFailure</li>
-            <li>provide a hook into the dynamic constraint types - getDynamicResourceHandler</li>
+            <li>get the current user - <code>getSubject</code></li>
+            <li>run a pre-authorization task that can block further execution - <code>beforeAuthCheck</code></li>
+            <li>handle authorization failure - <code>onAuthFailure</code></li>
+            <li>provide a hook into the dynamic constraint types - <code>getDynamicResourceHandler</code></li>
           </ul>
         </p>
         <p>
-          You only need to implement be.objectify.deadbolt.scala.DynamicResourceHandler if you're planning to use Dynamic or Pattern.CUSTOM constraints. This will be covered in detail in another section.
+          You only need to implement <code>be.objectify.deadbolt.scala.DynamicResourceHandler</code> if you're planning to use <code>Dynamic</code> or <code>Pattern.CUSTOM</code> constraints. This will be covered in detail in another section.
         </p>
         <p>
-          Implement the be.objectify.deadbolt.scala.HandlerCache trait. This is used by Deadbolt to obtain instances of DeadboltHandlers, and has two concepts
+          Implement the <code>be.objectify.deadbolt.scala.HandlerCache</code> trait. This is used by Deadbolt to obtain instances of DeadboltHandlers, and has two concepts
           <ul>
             <li>A default handler. You can always use a specific handler in a template or controller, but if nothing is specified a well-known instance will be used.</li>
             <li>Named handlers.</li>
@@ -126,7 +126,7 @@ class CustomDeadboltHook extends Module {
     )
 }            
           </pre>
-          ...and add it to your application.conf
+          ...and add it to your <code>application.conf</code>
           <pre class="code">
 play {
     modules {
@@ -202,7 +202,49 @@ libraryDependencies ++= Seq(
       </div>
       <div ng-if="section == 'controllerSubjectPresent'">
         <h3>SubjectPresent</h3>
-        <p>In progress</p>
+        <p>Sometimes, you don't need fine-grained checked - you just need to see if there is a user present (or not present).</p>
+        <h4>Using a builder</h4>
+        <p>
+          Inject the action builder into the controller.
+          <pre class="code">
+class ExampleController @Inject() (actionBuilder: ActionBuilders) extends Controller
+          </pre>
+        </p>
+        <p>
+          Add the constraint, using a specific <code>DeadboltHandler</code>.  This is defined by <code>.defaultHandler()</code>, <code>.key(HandlerKey)</code> or <code>.withHandler(DeadboltHandler)</code>.
+          <pre class="code">
+// DeadboltHandler#getSubject must result in a Some for access to be granted
+def someFunctionA = actionBuilder.SubjectPresentAction().defaultHandler() { Ok(accessOk()) }
+
+// DeadboltHandler#getSubject must result in a None for access to be granted
+def someFunctionB = actionBuilder.SubjectNotPresentAction().defaultHandler() { Ok(accessOk()) }
+          </pre>
+        </p>
+        <h4>Using direct composition</h4>
+        <p>
+          Inject the constraint actions into the controller.
+          <pre class="code">
+class ExampleController @Inject() (deadbolt: DeadboltActions) extends Controller
+          </pre>
+        </p>
+        <p>
+          Add the constraint, using a specific <code>DeadboltAction</code>.  If no handler is defined, the default handler will be used; you can also pass in a handler directly.
+          <pre class="code">
+// DeadboltHandler#getSubject must result in a Some for access to be granted
+def someFunctionA = deadbolt.SubjectPresent() {
+    Action {
+        Ok(accessOk())
+    }
+}
+
+// DeadboltHandler#getSubject must result in a None for access to be granted
+def someFunctionB = deadbolt.SubjectNotPresent() {
+    Action {
+        Ok(accessOk())
+    }
+}
+          </pre>
+        </p>
         <span next-section section="controllerSubjectNotPresent" label="SubjectNotPresent"></span>
       </div>
       <div ng-if="section == 'controllerSubjectNotPresent'">
@@ -275,8 +317,8 @@ libraryDependencies ++= Seq(
               <td>A <code>DeadboltHandler</code> to use when evaluating the authorization.</td>
             </tr>
             <tr>
-              <td>timeoutInMillis</td>
-              <td>Long</td>
+              <td>timeout</td>
+              <td>() => Long</td>
               <td>Templates can't be internally asynchronous, so the Subject, etc, must be available.  This value controls the timeout applied to Futures obtained from DeadboltHandler, etc.  Default is 1000, i.e. 1 second.</td>
             </tr>
           </tbody>
@@ -337,8 +379,8 @@ libraryDependencies ++= Seq(
               <td>A <code>DeadboltHandler</code> to use when evaluating the authorization.</td>
             </tr>
             <tr>
-              <td>timeoutInMillis</td>
-              <td>Long</td>
+              <td>timeout</td>
+              <td>() => Long</td>
               <td>Templates can't be internally asynchronous, so the Subject, etc, must be available.  This value controls the timeout applied to Futures obtained from DeadboltHandler, etc.  Default is 1000, i.e. 1 second.</td>
             </tr>
           </tbody>
@@ -413,8 +455,8 @@ libraryDependencies ++= Seq(
                   <td>The roles the subject must hold for successful authorization.</td>
               </tr>
               <tr>
-                  <td>timeoutInMillis</td>
-                  <td>Long</td>
+                  <td>timeout</td>
+                  <td>() => Long</td>
                   <td>Templates can't be internally asynchronous, so the Subject, etc, must be available.  This value controls the timeout applied to Futures obtained from DeadboltHandler, etc.  Default is 1000, i.e. 1 second.</td>
               </tr>
               </tbody>
@@ -488,8 +530,8 @@ libraryDependencies ++= Seq(
                   <td>Additional information that will be passed into <code>DynamicResourceHandler#isAllowed</code>.</td>
               </tr>
               <tr>
-                  <td>timeoutInMillis</td>
-                  <td>Long</td>
+                  <td>timeout</td>
+                  <td>() => Long</td>
                   <td>Templates can't be internally asynchronous, so the Subject, etc, must be available.  This value controls the timeout applied to Futures obtained from DeadboltHandler, etc.  Default is 1000, i.e. 1 second.</td>
               </tr>
               </tbody>
