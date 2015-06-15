@@ -202,7 +202,7 @@ libraryDependencies ++= Seq(
       </div>
       <div ng-if="section == 'controllerSubjectPresent'">
         <h3>SubjectPresent</h3>
-        <p>Sometimes, you don't need fine-grained checked - you just need to see if there is a user present (or not present).</p>
+        <p>Sometimes, you don't need fine-grained checked - you just need to see if there is a user present.</p>
         <h4>Using a builder</h4>
         <p>
           Inject the action builder into the controller.
@@ -214,10 +214,7 @@ class ExampleController @Inject() (actionBuilder: ActionBuilders) extends Contro
           Add the constraint, using a specific <code>DeadboltHandler</code>.  This is defined by <code>.defaultHandler()</code>, <code>.key(HandlerKey)</code> or <code>.withHandler(DeadboltHandler)</code>.
           <pre class="code">
 // DeadboltHandler#getSubject must result in a Some for access to be granted
-def someFunctionA = actionBuilder.SubjectPresentAction().defaultHandler() { Ok(accessOk()) }
-
-// DeadboltHandler#getSubject must result in a None for access to be granted
-def someFunctionB = actionBuilder.SubjectNotPresentAction().defaultHandler() { Ok(accessOk()) }
+def someFunction = actionBuilder.SubjectPresentAction().defaultHandler() { Ok(accessOk()) }
           </pre>
         </p>
         <h4>Using direct composition</h4>
@@ -231,14 +228,7 @@ class ExampleController @Inject() (deadbolt: DeadboltActions) extends Controller
           Add the constraint, using a specific <code>DeadboltAction</code>.  If no handler is defined, the default handler will be used; you can also pass in a handler directly.
           <pre class="code">
 // DeadboltHandler#getSubject must result in a Some for access to be granted
-def someFunctionA = deadbolt.SubjectPresent() {
-    Action {
-        Ok(accessOk())
-    }
-}
-
-// DeadboltHandler#getSubject must result in a None for access to be granted
-def someFunctionB = deadbolt.SubjectNotPresent() {
+def someFunction = deadbolt.SubjectPresent() {
     Action {
         Ok(accessOk())
     }
@@ -249,7 +239,39 @@ def someFunctionB = deadbolt.SubjectNotPresent() {
       </div>
       <div ng-if="section == 'controllerSubjectNotPresent'">
         <h3>SubjectNotPresent</h3>
-        <p>In progress</p>
+        <p>Sometimes, you don't need fine-grained checked - you just need to see if there is no user present.</p>
+        <h4>Using a builder</h4>
+        <p>
+          Inject the action builder into the controller.
+          <pre class="code">
+class ExampleController @Inject() (actionBuilder: ActionBuilders) extends Controller
+          </pre>
+        </p>
+        <p>
+          Add the constraint, using a specific <code>DeadboltHandler</code>.  This is defined by <code>.defaultHandler()</code>, <code>.key(HandlerKey)</code> or <code>.withHandler(DeadboltHandler)</code>.
+          <pre class="code">
+// DeadboltHandler#getSubject must result in a None for access to be granted
+def someFunction = actionBuilder.SubjectNotPresentAction().defaultHandler() { Ok(accessOk()) }
+          </pre>
+        </p>
+        <h4>Using direct composition</h4>
+        <p>
+          Inject the constraint actions into the controller.
+          <pre class="code">
+class ExampleController @Inject() (deadbolt: DeadboltActions) extends Controller
+          </pre>
+        </p>
+        <p>
+          Add the constraint, using a specific <code>DeadboltAction</code>.  If no handler is defined, the default handler will be used; you can also pass in a handler directly.
+          <pre class="code">
+// DeadboltHandler#getSubject must result in a None for access to be granted
+def someFunction = deadbolt.SubjectNotPresent() {
+    Action {
+        Ok(accessOk())
+    }
+}
+          </pre>
+        </p>
         <span next-section section="controllerRestrict" label="Restrict"></span>
       </div>
       <div ng-if="section == 'controllerRestrict'">
