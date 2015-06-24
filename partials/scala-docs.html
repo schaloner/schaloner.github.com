@@ -6,6 +6,7 @@
             <div class="panel-body">
                 <ul>
                     <li><button type="button" class="btn btn-link" ng-click="setSection('intro')">Intro</button></li>
+                    <li><button type="button" class="btn btn-link" ng-click="setSection('quickstart')">2.4 Quick start</button></li>
                 </ul>
             </div>
             <div class="panel-heading">Configuration</div>
@@ -43,6 +44,101 @@
       <div ng-if="section == 'intro'">
         <h3>Intro</h3>
         <p>In progress</p>
+        <span next-section section="quickstart" label="Quick start"></span>
+      </div>
+      <div ng-if="section == 'quickstart'">
+        <h3>2.4 Quick start</h3>
+        <p>A smal guide to get up and running quickly with Deadbolt for Play 2.4...</p>
+        <p>
+          Add the dependency to your build:
+          <pre class="code">"be.objectify" %% "deadbolt-scala" % "2.4.0.1"</pre>
+        </p>
+        <p>
+          Add the Deadbolt module to your Play application:
+          <pre class="code">
+play {
+    modules {
+        enabled += be.objectify.deadbolt.scala.DeadboltModule
+    }
+}            
+          </pre>
+        </p>
+        <p>
+          Implement the <code>Subject</code>, <code>Role</code> and <code>Permission</code> traits.
+          <ul>
+            <li><code>Subject</code> represents, typically, a user</li>
+            <li>A <code>Role</code> is a single system privilege, e.g. admin, user and so on. A subject can have zero or more roles.</li>
+            <li>A <code>Permission</code> is a can be used with regular expression matching, e.g. a subject with a permission of printers.admin can access a resource constrained to printers.*, *.admin, etc. A subject can have zero or more permissions.</li>
+          </ul>
+        </p>
+        <p>
+          Implement the <code>be.objectify.deadbolt.scala.DeadboltHandler</code> trait. This implementation (or implementations - you can more than one) is used to
+          <ul>
+            <li>get the current user - <code>getSubject</code></li>
+            <li>run a pre-authorization task that can block further execution - <code>beforeAuthCheck</code></li>
+            <li>handle authorization failure - <code>onAuthFailure</code></li>
+            <li>provide a hook into the dynamic constraint types - <code>getDynamicResourceHandler</code></li>
+          </ul>
+        </p>
+        <p>
+          You only need to implement <code>be.objectify.deadbolt.scala.DynamicResourceHandler</code> if you're planning to use <code>Dynamic</code> or <code>Pattern.CUSTOM</code> constraints. This will be covered in detail in another section.
+        </p>
+        <p>
+          Implement the <code>be.objectify.deadbolt.scala.HandlerCache</code> trait. This is used by Deadbolt to obtain instances of DeadboltHandlers, and has two concepts
+          <ul>
+            <li>A default handler. You can always use a specific handler in a template or controller, but if nothing is specified a well-known instance will be used.</li>
+            <li>Named handlers.</li>
+          </ul>
+        </p>
+        <p>
+          An example implementation follows, based on the sample app.
+          <pre class="code">
+@Singleton
+class MyHandlerCache extends HandlerCache {
+    val defaultHandler: DeadboltHandler = new MyDeadboltHandler
+
+    // HandlerKeys is an user-defined object, containing instances of a case class that extends HandlerKey  
+    val handlers: Map[Any, DeadboltHandler] = Map(HandlerKeys.defaultHandler -> defaultHandler,
+                                                  HandlerKeys.altHandler -> new MyDeadboltHandler(Some(MyAlternativeDynamicResourceHandler)),
+                                                  HandlerKeys.userlessHandler -> new MyUserlessDeadboltHandler)
+
+    // Get the default handler.
+    override def apply(): DeadboltHandler = defaultHandler
+
+    // Get a named handler
+    override def apply(handlerKey: HandlerKey): DeadboltHandler = handlers(handlerKey)
+}            
+          </pre>
+        </p>
+        <p>
+          Finally, expose your handlers to Deadbolt. To do this, you will need to create a small module that binds your handler cache by type...
+          <pre class="code">
+package com.example.modules
+
+import be.objectify.deadbolt.scala.cache.HandlerCache
+import play.api.inject.{Binding, Module}
+import play.api.{Configuration, Environment}
+import com.example.security.MyHandlerCache
+
+class CustomDeadboltHook extends Module {
+    override def bindings(environment: Environment, configuration: Configuration): Seq[Binding[_]] = Seq(
+        bind[HandlerCache].to[MyHandlerCache]
+    )
+}            
+          </pre>
+          ...and add it to your <code>application.conf</code>
+          <pre class="code">
+play {
+    modules {
+        enabled += be.objectify.deadbolt.scala.DeadboltModule
+        enabled += com.example.modules.CustomDeadboltHook
+    }
+}            
+          </pre>
+        </p>
+        <p>
+          You're now ready to secure access to controller functions and templates in your Play 2 application.
+        </p>
         <span next-section section="dependencies" label="Dependencies"></span>
       </div>
       <div ng-if="section == 'dependencies'">
@@ -106,12 +202,76 @@ libraryDependencies ++= Seq(
       </div>
       <div ng-if="section == 'controllerSubjectPresent'">
         <h3>SubjectPresent</h3>
-        <p>In progress</p>
+        <p>Sometimes, you don't need fine-grained checked - you just need to see if there is a user present.</p>
+        <h4>Using a builder</h4>
+        <p>
+          Inject the action builder into the controller.
+          <pre class="code">
+class ExampleController @Inject() (actionBuilder: ActionBuilders) extends Controller
+          </pre>
+        </p>
+        <p>
+          Add the constraint, using a specific <code>DeadboltHandler</code>.  This is defined by <code>.defaultHandler()</code>, <code>.key(HandlerKey)</code> or <code>.withHandler(DeadboltHandler)</code>.
+          <pre class="code">
+// DeadboltHandler#getSubject must result in a Some for access to be granted
+def someFunction = actionBuilder.SubjectPresentAction().defaultHandler() { Ok(accessOk()) }
+          </pre>
+        </p>
+        <h4>Using direct composition</h4>
+        <p>
+          Inject the constraint actions into the controller.
+          <pre class="code">
+class ExampleController @Inject() (deadbolt: DeadboltActions) extends Controller
+          </pre>
+        </p>
+        <p>
+          Add the constraint, using a specific <code>DeadboltAction</code>.  If no handler is defined, the default handler will be used; you can also pass in a handler directly.
+          <pre class="code">
+// DeadboltHandler#getSubject must result in a Some for access to be granted
+def someFunction = deadbolt.SubjectPresent() {
+    Action {
+        Ok(accessOk())
+    }
+}
+          </pre>
+        </p>
         <span next-section section="controllerSubjectNotPresent" label="SubjectNotPresent"></span>
       </div>
       <div ng-if="section == 'controllerSubjectNotPresent'">
         <h3>SubjectNotPresent</h3>
-        <p>In progress</p>
+        <p>Sometimes, you don't need fine-grained checked - you just need to see if there is no user present.</p>
+        <h4>Using a builder</h4>
+        <p>
+          Inject the action builder into the controller.
+          <pre class="code">
+class ExampleController @Inject() (actionBuilder: ActionBuilders) extends Controller
+          </pre>
+        </p>
+        <p>
+          Add the constraint, using a specific <code>DeadboltHandler</code>.  This is defined by <code>.defaultHandler()</code>, <code>.key(HandlerKey)</code> or <code>.withHandler(DeadboltHandler)</code>.
+          <pre class="code">
+// DeadboltHandler#getSubject must result in a None for access to be granted
+def someFunction = actionBuilder.SubjectNotPresentAction().defaultHandler() { Ok(accessOk()) }
+          </pre>
+        </p>
+        <h4>Using direct composition</h4>
+        <p>
+          Inject the constraint actions into the controller.
+          <pre class="code">
+class ExampleController @Inject() (deadbolt: DeadboltActions) extends Controller
+          </pre>
+        </p>
+        <p>
+          Add the constraint, using a specific <code>DeadboltAction</code>.  If no handler is defined, the default handler will be used; you can also pass in a handler directly.
+          <pre class="code">
+// DeadboltHandler#getSubject must result in a None for access to be granted
+def someFunction = deadbolt.SubjectNotPresent() {
+    Action {
+        Ok(accessOk())
+    }
+}
+          </pre>
+        </p>
         <span next-section section="controllerRestrict" label="Restrict"></span>
       </div>
       <div ng-if="section == 'controllerRestrict'">
@@ -179,8 +339,8 @@ libraryDependencies ++= Seq(
               <td>A <code>DeadboltHandler</code> to use when evaluating the authorization.</td>
             </tr>
             <tr>
-              <td>timeoutInMillis</td>
-              <td>Long</td>
+              <td>timeout</td>
+              <td>() => Long</td>
               <td>Templates can't be internally asynchronous, so the Subject, etc, must be available.  This value controls the timeout applied to Futures obtained from DeadboltHandler, etc.  Default is 1000, i.e. 1 second.</td>
             </tr>
           </tbody>
@@ -241,8 +401,8 @@ libraryDependencies ++= Seq(
               <td>A <code>DeadboltHandler</code> to use when evaluating the authorization.</td>
             </tr>
             <tr>
-              <td>timeoutInMillis</td>
-              <td>Long</td>
+              <td>timeout</td>
+              <td>() => Long</td>
               <td>Templates can't be internally asynchronous, so the Subject, etc, must be available.  This value controls the timeout applied to Futures obtained from DeadboltHandler, etc.  Default is 1000, i.e. 1 second.</td>
             </tr>
           </tbody>
@@ -317,8 +477,8 @@ libraryDependencies ++= Seq(
                   <td>The roles the subject must hold for successful authorization.</td>
               </tr>
               <tr>
-                  <td>timeoutInMillis</td>
-                  <td>Long</td>
+                  <td>timeout</td>
+                  <td>() => Long</td>
                   <td>Templates can't be internally asynchronous, so the Subject, etc, must be available.  This value controls the timeout applied to Futures obtained from DeadboltHandler, etc.  Default is 1000, i.e. 1 second.</td>
               </tr>
               </tbody>
@@ -392,8 +552,8 @@ libraryDependencies ++= Seq(
                   <td>Additional information that will be passed into <code>DynamicResourceHandler#isAllowed</code>.</td>
               </tr>
               <tr>
-                  <td>timeoutInMillis</td>
-                  <td>Long</td>
+                  <td>timeout</td>
+                  <td>() => Long</td>
                   <td>Templates can't be internally asynchronous, so the Subject, etc, must be available.  This value controls the timeout applied to Futures obtained from DeadboltHandler, etc.  Default is 1000, i.e. 1 second.</td>
               </tr>
               </tbody>
