@@ -276,12 +276,192 @@ def someFunction = deadbolt.SubjectNotPresent() {
       </div>
       <div ng-if="section == 'controllerRestrict'">
         <h3>Restrict</h3>
-        <p>In progress</p>
+        <p>This uses the Subjects Roles to perform AND/OR/NOT checks. The values specified in the constraint must match the Role.name of the subject's roles</p>
+        <p>
+          AND is defined as an <code>Array[String]</code> (or more correctly, <code>String*</code>, OR is a <code>List[Array[String]]</code>, and NOT is a rolename with a ! preceding it.
+        </p>
+        <h4>Using a builder</h4>
+        <p>
+          Inject the action builder into the controller.
+
+          <pre class="code">
+class ExampleController @Inject() (actionBuilder: ActionBuilders) extends Controller
+          </pre>
+        </p>
+        <p>
+          <strong>Parameters</strong>
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Default value</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>roles</td>
+                <td></td>
+                <td>The combination of roles required to allow access.</td>
+              </tr>
+            </tbody>
+          </table>
+        </p>
+        <p>
+          Add the constraint, using a specific <code>DeadboltHandler</code>.  This is defined by <code>.defaultHandler()</code>, <code>.key(HandlerKey)</code> or <code>.withHandler(DeadboltHandler)</code>.
+        </p>
+        <pre class="code">
+// subject must have the "foo" role
+def restrictedFunctionA = actionBuilder.RestrictAction("foo").defaultHandler() { Ok(accessOk()) }
+        </pre>
+        <pre class="code">
+// // subject must have the "foo" AND "bar" roles
+def restrictedFunctionB = actionBuilder.RestrictAction("foo", "bar").defaultHandler() { Ok(accessOk()) }
+        </pre>
+        <pre class="code">
+// subject must have the "foo" OR "bar" roles
+def restrictedFunctionC = actionBuilder.RestrictAction(List(Array("foo"), Array("bar"))).defaultHandler() { Ok(accessOk()) }
+        </pre>
+        <h4>Using direct composition</h4>
+        <p>
+          Inject the constraint actions into the controller.
+          <pre class="code">
+class ExampleController @Inject() (deadbolt: DeadboltActions) extends Controller
+          </pre>
+        </p>
+        <p>
+          Add the constraint, using a specific <code>DeadboltAction</code>.  If no handler is defined, the default handler will be used; you can also pass in a handler directly.
+        </p>
+        <p>
+          <strong>Parameters</strong>
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Default value</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>roleGroups</td>
+                <td></td>
+                <td>The combination of roles required to allow access.</td>
+              </tr>
+              <tr>
+                <td>handler</td>
+                <td>The default <code>DeadboltHandler</code> provided by the injected <code>HandlerCache</code>.</td>
+                <td>The handler used to process the constraint.</td>
+              </tr>
+            </tbody>
+          </table>
+        </p>
+        <pre class="code">
+// subject must have the "foo" role 
+def restrictedFunctionA = deadbolt.Restrict(List(Array("foo")) {
+    Action {
+        Ok(accessOk())
+    }
+}
+        </pre>
+        <pre class="code">
+// subject must have the "foo" AND "bar" roles 
+def restrictedFunctionB = deadbolt.Restrict(List(Array("foo", "bar")) {
+    Action {
+        Ok(accessOk())
+    }
+}
+        </pre>
+        <pre class="code">
+// subject must have the "foo" OR "bar" roles 
+def restrictedFunctionC = deadbolt.Restrict(List(Array("foo"), Array("bar"))) {
+    Action {
+        Ok(accessOk())
+    }
+}
+        </pre>
         <span next-section section="controllerDynamic" label="Dynamic"></span>
       </div>
       <div ng-if="section == 'controllerDynamic'">
         <h3>Dynamic</h3>
-        <p>In progress</p>
+        <p>This is the most flexible constraint.  The implementation of the block/allow behaviour is provided through a <code>DynamicResourceHandler</code>, so you can write anything you want in there.</p>
+        <h4>Using a builder</h4>
+        <p>
+          Inject the action builder into the controller.
+          <pre class="code">
+class ExampleController @Inject() (actionBuilder: ActionBuilders) extends Controller
+          </pre>
+        </p>
+        <p>
+          Add the constraint, using a specific <code>DeadboltHandler</code>.  This is defined by <code>.defaultHandler()</code>, <code>.key(HandlerKey)</code> or <code>.withHandler(DeadboltHandler)</code>.
+        </p>
+        <p>
+          <strong>Parameters</strong>
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Default value</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>name</td>
+                <td></td>
+                <td>The name of the resource.  This will be passed into the <code>DynamicResourceHandler</code> returned by the current <code>DeadboltHandler</code>.</td>
+              </tr>
+              <tr>
+                <td>meta</td>
+                <td><code>""</code></td>
+                <td>Additional information when deciding on access to the resource. It's a free formatted string, so you can pass simple data or more complex string such as foo=bar,hurdy=gurdy which can be parsed into a map.</td>
+              </tr>
+            </tbody>
+          </table>
+        </p>
+        <pre class="code">
+// DeadboltHandler#getSubject must result in a Some for access to be granted
+def foo = actionBuilder.DynamicAction(name = "someClassifier").defaultHandler() { Ok(accessOk()) }
+        </pre>
+        <h4>Using direct composition</h4>
+        <p>
+          Inject the constraint actions into the controller.
+          <pre class="code">
+class ExampleController @Inject() (deadbolt: DeadboltActions) extends Controller
+          </pre>
+        </p>
+        <p>
+          Add the constraint, using a specific <code>DeadboltAction</code>.  If no handler is defined, the default handler will be used; you can also pass in a handler directly.
+        </p>
+        <p>
+          <strong>Parameters</strong>
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Default value</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>name</td>
+                <td></td>
+                <td>The name of the resource.  This will be passed into the <code>DynamicResourceHandler</code> returned by the current <code>DeadboltHandler</code>.</td>
+              </tr>
+              <tr>
+                <td>meta</td>
+                <td><code>""</code></td>
+                <td>Additional information when deciding on access to the resource. It's a free formatted string, so you can pass simple data or more complex string such as foo=bar,hurdy=gurdy which can be parsed into a map.</td>
+              </tr>
+              <tr>
+                <td>handler</td>
+                <td>The default <code>DeadboltHandler</code> provided by the injected <code>HandlerCache</code>.</td>
+                <td>The handler used to process the constraint.</td>
+              </tr>
+            </tbody>
+          </table>
+        </p>
         <span next-section section="controllerPattern" label="Pattern"></span>
       </div>
       <div ng-if="section == 'controllerPattern'">
