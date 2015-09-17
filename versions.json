@@ -32,7 +32,7 @@
         },
         {
             "playVersion": "2.4.0",
-            "version": "2.4.2.1",
+            "version": "2.4.3",
             "groupId": "be.objectify",
             "artifactId": "deadbolt-java"
         }
