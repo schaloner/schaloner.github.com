@@ -1,0 +1,14 @@
+To get you up and running quickly, there are several Lightbend Activator templates available.  These range from simple examples through to full integration with third-party identity management platforms, written in Scala and Java.
+
+<div class="tab-pane edit-tab" id="developer-hubs">
+    <div class="teb-icon-edit">
+        <i class="fa fa-umbrella"></i>
+    </div>
+    <h1>Developer hubs</h1>
+    <p>Thanks to the good folks over at <a href="https://readme.io" target="_new">readme</a>, we have developer hubs with semantically versioned documents and support forums.
+        <ul>
+            <li><a href="https://deadbolt-java.readme.io" target="_new">Deadbolt for Java</a></li>
+            <li><a href="https://deadbolt-scala.readme.io" target="_new">Deadbolt for Scala</a></li>
+        </ul>
+    </p>
+</div>
