@@ -174,8 +174,9 @@
                 <h1>Scala API</h1>
 
                 <p>
-                  Deadbolt's Scala API allows you to secure both controllers and templates. Constraints applied to controller functions can be achieved either through action composition or using a
-                  constraint builder.
+                  Deadbolt's Scala API allows you to secure both controllers and templates. Constraints applied to controller functions can be achieved through action composition or using a
+                  constraint builder.  If you prefer not to have security concerns defined in controllers, you can also apply them at the route level, centralising your authorization rules;  
+                  this approach also makes unit and functional testing of controllers easier because the security layer is bypassed.
                   <br/>
                 </p>
                 <br/>
