@@ -8,534 +8,613 @@
 <!--[if gt IE 8]><!-->
 <html class="no-js"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Deadbolt 2 - Powerful Authorization for your Play Applications</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Deadbolt 2 - Powerful Authorization for your Play Applications</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link href='http://fonts.googleapis.com/css?family=Raleway:400,100,300,700,600,500' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic,700' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Laila:600' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,100,300,700,600,500' rel='stylesheet'
+          type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,400italic,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Laila:600' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="css/slicknav.css">
-  <link rel="stylesheet" href="css/owl.theme.css">
-  <link rel="stylesheet" href="css/owl.carousel.css">
-  <link rel="stylesheet" href="css/owl.transitions.css">
-  <link rel="stylesheet" href="css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/font-mfizz.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/responsive.css">
-  <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    <link rel="stylesheet" href="css/slicknav.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-mfizz.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
 <a href="https://github.com/schaloner/deadbolt-2"><img style="position: absolute; top: 0; right: 0; border: 0;"
                                                        src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67"
-                                                       alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+                                                       alt="Fork me on GitHub"
+                                                       data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
 <section id="header">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="block-left">
-          <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-                <div class="nav-logo">
-                  <h2 style="font-family: 'Laila', serif;"><a href="#"><img src="img/deadbolt-logo-v2-30x48.png" alt="logo"> Deadbolt</a></h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="block-left">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <div class="container-fluid">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                                        data-target="#bs-example-navbar-collapse-1">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <div class="nav-logo">
+                                    <h2 style="font-family: 'Laila', serif;"><a href="#"><img
+                                            src="img/deadbolt-logo-v2-30x48.png" alt="logo"> Deadbolt</a></h2>
+                                </div>
+                            </div>
+
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="#service">Features</a></li>
+                                    <li><a href="#contant-1">Developer hubs</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
                 </div>
-              </div>
-
-              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                  <li><a href="#service">Features</a></li>
-                  <li><a href="#contant-1">Developer hubs</a></li>
-                </ul>
-              </div>
             </div>
-          </nav>
-        </div>
-      </div>
 
-      <div class="col-md-6">
-        <div class="block-right">
-          <div class="contact-area">
-            <ul>
-              <li class="pull-right">
-                <a class="github-button" href="https://github.com/schaloner/deadbolt-2" data-style="mega" data-count-href="/schaloner/deadbolt-2/stargazers"
-                   data-count-api="/repos/schaloner/deadbolt-2#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star schaloner/deadbolt-2 on GitHub">Star</a>
-              </li>
-              <li class="pull-right">
-                <a class="github-button" href="https://github.com/schaloner/deadbolt-2/fork" data-style="mega" data-count-href="/schaloner/deadbolt-2/network"
-                   data-count-api="/repos/schaloner/deadbolt-2#forks_count" data-count-aria-label="# forks on GitHub" aria-label="Fork schaloner/deadbolt-2 on GitHub">Fork</a>
-              </li>
-            </ul>
-          </div>
+            <div class="col-md-6">
+                <div class="block-right">
+                    <div class="contact-area">
+                        <ul>
+                            <li class="pull-right">
+                                <a class="github-button" href="https://github.com/schaloner/deadbolt-2"
+                                   data-size="large" data-count-href="/schaloner/deadbolt-2/stargazers"
+                                   data-show-count="true" data-count-aria-label="# stargazers on GitHub"
+                                   aria-label="Star schaloner/deadbolt-2 on GitHub">Star</a>
+                            </li>
+                            <li class="pull-right">
+                                <a class="github-button" href="https://github.com/schaloner/deadbolt-2/fork"
+                                   data-size="large" data-count-href="/schaloner/deadbolt-2/network"
+                                   data-show-count="true" data-count-aria-label="# forks on GitHub"
+                                   aria-label="Fork schaloner/deadbolt-2 on GitHub">Fork</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 
 <section id="slider">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="block">
-          <div class="slider-text-area">
-            <div class="slider-text">
-              <h2>Deadbolt helps secure your apps <br></h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block">
+                    <div class="slider-text-area">
+                        <div class="slider-text">
+                            <h2>Deadbolt helps secure your apps <br></h2>
 
-              <p class="sub-slider-text">Fine-grained authorization for <br/>controllers &amp; templates</p>
+                            <p class="sub-slider-text">Fine-grained authorization for <br/>controllers &amp; templates
+                            </p>
 
-              <p class="slider-p">Deadbolt has APIs for Java and Scala, giving you idiomatic tools <br>
-                to control who can do what in your application.</p>
+                            <p class="slider-p">Deadbolt has APIs for Java and Scala, giving you idiomatic tools <br>
+                                to control who can do what in your application.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 
 <section id="service">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="block-top">
-          <div class="service-header">
-            <h1>Key features</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block-top">
+                    <div class="service-header">
+                        <h1>Key features</h1>
 
-            <p>Deadbolt evolved to solve real-world problems, and its features reflect that.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="block-bottom">
-          <div class="service-tab">
-            <ul class="badhon-tab" role="tablist">
-              <li class="active"><a href="#java-api" aria-controls="java-api" role="tab" data-toggle="tab">
-                <i class="icon-java"></i>
-                Java API
-              </a></li>
-              <li><a href="#scala-api" aria-controls="scala-api" role="tab" data-toggle="tab">
-                <i class="icon-scala"></i>
-                Scala API
-              </a></li>
-              <li><a href="#the-play-way" aria-controls="the-play-way" role="tab" data-toggle="tab">
-                <i class="icon-playframework"></i>
-                The Play Way
-              </a></li>
-              <li><a href="#controllers" aria-controls="controllers" role="tab" data-toggle="tab">
-                <i class="fa fa-server"></i>
-                Controllers
-              </a></li>
-              <li><a href="#templates" aria-controls="templates" role="tab" data-toggle="tab">
-                <i class="icon-html"></i>
-                Templates
-              </a></li>
-              <li><a href="#routes" aria-controls="routes" role="tab" data-toggle="tab">
-                <i class="fa fa-map-signs"></i>
-                Routes
-              </a></li>
-              <li><a href="#authentication" aria-controls="authentication" role="tab" data-toggle="tab">
-                <i class="fa fa-lock"></i>
-                Authentication agnostic
-              </a></li>
-            </ul>
-
-            <div class="tab-content edit-tab-content">
-              <div class="tab-pane active edit-tab" id="java-api">
-                <div class="teb-icon-edit">
-                  <i class="icon-java"></i>
+                        <p>Deadbolt evolved to solve real-world problems, and its features reflect that.</p>
+                    </div>
                 </div>
-                <h1>Java API</h1>
-
-                <p>
-                  Deadbolt's Java API allows you to secure both controllers and templates. Constraints can be applied at both the controller or action level.
-                </p>
-                <p>
-                  If you prefer not to have security concerns defined in controllers, you can also apply them at the route level, centralising your authorization rules; this approach also makes unit
-                  and functional testing of controllers easier because the security layer is bypassed. This feature can also be used to protect your static assets.
-                </p>
-                <br/>
-
-                <p>
-                  <img src="img/java-controller.png"/>
-                </p>
-                <br/>
-
-                <p>
-                  The documentation and developer hub for Deadbolt's Java API can be found <a href="http://deadbolt-java.readme.io">here</a>.
-                </p>
-              </div>
-              <div class="tab-pane edit-tab" id="scala-api">
-                <div class="teb-icon-edit">
-                  <i class="icon-scala"></i>
-                </div>
-                <h1>Scala API</h1>
-
-                <p>
-                  Deadbolt's Scala API allows you to secure both controllers and templates. Constraints applied to controller functions can be achieved through action composition or using a
-                  constraint builder. If you prefer not to have security concerns defined in controllers, you can also apply them at the route level, centralising your authorization rules;
-                  this approach also makes unit and functional testing of controllers easier because the security layer is bypassed. This feature can also be used to protect your static assets.
-                  <br/>
-                </p>
-                <br/>
-
-                <p><img src="img/scala-controller.png"/></p>
-                <br/>
-
-                <p>
-                  There's a module that provides bindings for runtime dependency injection, and a trait you can mix into your custom application loader if you're using compile-time dependency
-                  injection.
-                  <br/><br/>
-                </p>
-                <br/>
-
-                <p>
-                  <img src="img/ct-di.png"/>
-                </p>
-                <br/>
-
-                <p>
-                  The documentation and developer hub for Deadbolt's Scala API can be found <a href="http://deadbolt-scala.readme.io">here</a>.
-                </p>
-              </div>
-              <div class="tab-pane edit-tab" id="the-play-way">
-                <div class="teb-icon-edit">
-                  <i class="icon-playframework"></i>
-                </div>
-                <h1>The Play Way</h1>
-
-                <p>Deadbolt embraces the Play concepts of asynchronicty, non-blocking IO and statelessness.</p>
-              </div>
-              <div class="tab-pane edit-tab" id="controllers">
-                <div class="teb-icon-edit">
-                  <i class="fa fa-server"></i>
-                </div>
-                <h1>Controllers</h1>
-
-                <p>Deadbolt constraints applied to controller actions intercept requests and ensure the current subject is allowed to access them. When access fails, the resulting behaviour can be
-                  customised to provide a meaningful response.
-                </p>
-              </div>
-              <div class="tab-pane edit-tab" id="templates">
-                <div class="teb-icon-edit">
-                  <i class="icon-html"></i>
-                </div>
-                <h1>Templates</h1>
-
-                <p>
-                  Adding Deadbolt constraints in templates means you can customize views on the server-side based on what a subject is allowed to see. This is <strong>not</strong> a DOM manipulation
-                  that can still be accessed on the client side - anything wrapped in a constraint that is not satisfied is excluded from the response body.
-                </p>
-                <br/>
-
-                <p>
-                  All template constraints have an <strong>OR</strong> variant, allowing you to define fallback content
-                </p>
-              </div>
-              <div class="tab-pane edit-tab" id="routes">
-                <div class="teb-icon-edit">
-                  <i class="fa fa-map-signs"></i>
-                </div>
-                <h1>Routes</h1>
-
-                <p>
-                  If you don't want to add authorizations directly into your code, you can apply them to the routes instead.
-                </p>
-                <br/>
-
-                <p>
-                  <img src="img/routes.png"/>
-                </p>
-              </div>
-              <div class="tab-pane edit-tab" id="authentication">
-                <div class="teb-icon-edit">
-                  <i class="fa fa-lock"></i>
-                </div>
-                <h1>Authentication agnostic</h1>
-
-                <p>
-                  Deadbolt doesn't care which authentication mechanism you use, so you're free to use your favourite authentication library or write your own. Authorization is kept isolated from
-                  authentication, so it's possible to change your authentication system without affecting your authorization constraints.
-                </p>
-                <br/>
-
-                <p>
-                  It's even possible to have multiple authentication mechanisms within a single application, triggered purely by your Deadbolt authorization configuration.
-                </p>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block-bottom">
+                    <div class="service-tab">
+                        <ul class="badhon-tab" role="tablist">
+                            <li class="active"><a href="#java-api" aria-controls="java-api" role="tab"
+                                                  data-toggle="tab">
+                                <i class="icon-java"></i>
+                                Java API
+                            </a></li>
+                            <li><a href="#scala-api" aria-controls="scala-api" role="tab" data-toggle="tab">
+                                <i class="icon-scala"></i>
+                                Scala API
+                            </a></li>
+                            <li><a href="#the-play-way" aria-controls="the-play-way" role="tab" data-toggle="tab">
+                                <i class="icon-playframework"></i>
+                                The Play Way
+                            </a></li>
+                            <li><a href="#controllers" aria-controls="controllers" role="tab" data-toggle="tab">
+                                <i class="fa fa-server"></i>
+                                Controllers
+                            </a></li>
+                            <li><a href="#templates" aria-controls="templates" role="tab" data-toggle="tab">
+                                <i class="icon-html"></i>
+                                Templates
+                            </a></li>
+                            <li><a href="#routes" aria-controls="routes" role="tab" data-toggle="tab">
+                                <i class="fa fa-map-signs"></i>
+                                Routes
+                            </a></li>
+                            <li><a href="#authentication" aria-controls="authentication" role="tab" data-toggle="tab">
+                                <i class="fa fa-lock"></i>
+                                Authentication agnostic
+                            </a></li>
+                        </ul>
+
+                        <div class="tab-content edit-tab-content">
+                            <div class="tab-pane active edit-tab" id="java-api">
+                                <div class="teb-icon-edit">
+                                    <i class="icon-java"></i>
+                                </div>
+                                <h1>Java API</h1>
+
+                                <p>
+                                    Deadbolt's Java API allows you to secure both controllers and templates. Constraints
+                                    can be applied at both the controller or action level.
+                                </p>
+                                <p>
+                                    If you prefer not to have security concerns defined in controllers, you can also
+                                    apply them at the route level, centralising your authorization rules; this approach
+                                    also makes unit
+                                    and functional testing of controllers easier because the security layer is bypassed.
+                                    This feature can also be used to protect your static assets.
+                                </p>
+                                <br/>
+
+                                <p>
+                                    <img src="img/java-controller.png"/>
+                                </p>
+                                <br/>
+
+                                <p>
+                                    The documentation and developer hub for Deadbolt's Java API can be found <a
+                                        href="http://deadbolt-java.readme.io">here</a>.
+                                </p>
+                            </div>
+                            <div class="tab-pane edit-tab" id="scala-api">
+                                <div class="teb-icon-edit">
+                                    <i class="icon-scala"></i>
+                                </div>
+                                <h1>Scala API</h1>
+
+                                <p>
+                                    Deadbolt's Scala API allows you to secure both controllers and templates.
+                                    Constraints applied to controller functions can be achieved through action
+                                    composition or using a
+                                    constraint builder. If you prefer not to have security concerns defined in
+                                    controllers, you can also apply them at the route level, centralising your
+                                    authorization rules;
+                                    this approach also makes unit and functional testing of controllers easier because
+                                    the security layer is bypassed. This feature can also be used to protect your static
+                                    assets.
+                                    <br/>
+                                </p>
+                                <br/>
+
+                                <p><img src="img/scala-controller.png"/></p>
+                                <br/>
+
+                                <p>
+                                    There's a module that provides bindings for runtime dependency injection, and a
+                                    trait you can mix into your custom application loader if you're using compile-time
+                                    dependency
+                                    injection.
+                                    <br/><br/>
+                                </p>
+                                <br/>
+
+                                <p>
+                                    <img src="img/ct-di.png"/>
+                                </p>
+                                <br/>
+
+                                <p>
+                                    The documentation and developer hub for Deadbolt's Scala API can be found <a
+                                        href="http://deadbolt-scala.readme.io">here</a>.
+                                </p>
+                            </div>
+                            <div class="tab-pane edit-tab" id="the-play-way">
+                                <div class="teb-icon-edit">
+                                    <i class="icon-playframework"></i>
+                                </div>
+                                <h1>The Play Way</h1>
+
+                                <p>Deadbolt embraces the Play concepts of asynchronicty, non-blocking IO and
+                                    statelessness.</p>
+                            </div>
+                            <div class="tab-pane edit-tab" id="controllers">
+                                <div class="teb-icon-edit">
+                                    <i class="fa fa-server"></i>
+                                </div>
+                                <h1>Controllers</h1>
+
+                                <p>Deadbolt constraints applied to controller actions intercept requests and ensure the
+                                    current subject is allowed to access them. When access fails, the resulting
+                                    behaviour can be
+                                    customised to provide a meaningful response.
+                                </p>
+                            </div>
+                            <div class="tab-pane edit-tab" id="templates">
+                                <div class="teb-icon-edit">
+                                    <i class="icon-html"></i>
+                                </div>
+                                <h1>Templates</h1>
+
+                                <p>
+                                    Adding Deadbolt constraints in templates means you can customize views on the
+                                    server-side based on what a subject is allowed to see. This is <strong>not</strong>
+                                    a DOM manipulation
+                                    that can still be accessed on the client side - anything wrapped in a constraint
+                                    that is not satisfied is excluded from the response body.
+                                </p>
+                                <br/>
+
+                                <p>
+                                    All template constraints have an <strong>OR</strong> variant, allowing you to define
+                                    fallback content
+                                </p>
+                            </div>
+                            <div class="tab-pane edit-tab" id="routes">
+                                <div class="teb-icon-edit">
+                                    <i class="fa fa-map-signs"></i>
+                                </div>
+                                <h1>Routes</h1>
+
+                                <p>
+                                    If you don't want to add authorizations directly into your code, you can apply them
+                                    to the routes instead.
+                                </p>
+                                <br/>
+
+                                <p>
+                                    <img src="img/routes.png"/>
+                                </p>
+                            </div>
+                            <div class="tab-pane edit-tab" id="authentication">
+                                <div class="teb-icon-edit">
+                                    <i class="fa fa-lock"></i>
+                                </div>
+                                <h1>Authentication agnostic</h1>
+
+                                <p>
+                                    Deadbolt doesn't care which authentication mechanism you use, so you're free to use
+                                    your favourite authentication library or write your own. Authorization is kept
+                                    isolated from
+                                    authentication, so it's possible to change your authentication system without
+                                    affecting your authorization constraints.
+                                </p>
+                                <br/>
+
+                                <p>
+                                    It's even possible to have multiple authentication mechanisms within a single
+                                    application, triggered purely by your Deadbolt authorization configuration.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
 
 <section id="contant-1">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="block-right">
-          <div class="contant-1-text-area">
-            <div class="contant-1-header">
-              <h1><i class="icon-scala"></i> Deadbolt's Scala API</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="block-right">
+                    <div class="contant-1-text-area">
+                        <div class="contant-1-header">
+                            <h1><i class="icon-scala"></i> Deadbolt's Scala API</h1>
+                        </div>
+                        <!--
+                        <div>
+                          <img src="https://travis-ci.org/schaloner/deadbolt-2-scala.svg?branch=master" alt="Build status"/>
+                        </div>
+                      -->
+                        <div class="contant-1-text">
+                            <p>Semantically versioned documentation and support for the Scala API.</p>
+                            <a href="https://deadbolt-scala.readme.io" class="btn btn-default edit-button-2"
+                               target="_new"><i class="icon-scala"></i> Developer Hub</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!--
-            <div>
-              <img src="https://travis-ci.org/schaloner/deadbolt-2-scala.svg?branch=master" alt="Build status"/>
+            <div class="col-md-6">
+                <div class="block-right">
+                    <div class="contant-1-text-area">
+                        <div class="contant-1-header">
+                            <h1><i class="icon-java"></i> Deadbolt's Java API</h1>
+                        </div>
+                        <!--
+                        <div>
+                          <img src="https://travis-ci.org/schaloner/deadbolt-2-java.svg?branch=master" alt="Build status"/>
+                        </div>
+                      -->
+                        <div class="contant-1-text">
+                            <p>Semantically versioned documentation and support for the Java API.</p>
+                            <a href="https://deadbolt-java.readme.io" class="btn btn-default edit-button-2"
+                               target="_new"><i class="icon-java"></i> Developer Hub</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-          -->
-            <div class="contant-1-text">
-              <p>Semantically versioned documentation and support for the Scala API.</p>
-              <a href="https://deadbolt-scala.readme.io" class="btn btn-default edit-button-2" target="_new"><i class="icon-scala"></i> Developer Hub</a>
-            </div>
-          </div>
         </div>
-      </div>
-      <div class="col-md-6">
-        <div class="block-right">
-          <div class="contant-1-text-area">
-            <div class="contant-1-header">
-              <h1><i class="icon-java"></i> Deadbolt's Java API</h1>
-            </div>
-            <!--
-            <div>
-              <img src="https://travis-ci.org/schaloner/deadbolt-2-java.svg?branch=master" alt="Build status"/>
-            </div>
-          -->
-            <div class="contant-1-text">
-              <p>Semantically versioned documentation and support for the Java API.</p>
-              <a href="https://deadbolt-java.readme.io" class="btn btn-default edit-button-2" target="_new"><i class="icon-java"></i> Developer Hub</a>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </section>
 
 <section id="testimonial">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="block">
-          <div class="testimonial-area">
-            <div class="tm-header">
-              <h2>What people say about Deadbolt</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block">
+                    <div class="testimonial-area">
+                        <div class="tm-header">
+                            <h2>What people say about Deadbolt</h2>
+                        </div>
+                        <div class="tm-contant">
+                            <div class="tm-contant-items" id="slide-testimonial">
+                                <div class="tm-contant-list item">
+                                    <div class="tm-img">
+                                        <a href="https://twitter.com/PeterHilton" target="_new">
+                                            <img src="https://pbs.twimg.com/profile_images/494749552528728064/Ns8wZF_a.jpeg"
+                                                 alt="Peter Hilton">
+                                        </a>
+                                    </div>
+                                    <div class="tm-text">
+                                        <p>"With Deadbolt, we got authorisation working in less time than it would have
+                                            taken us just to figure out what our controllers should look like.
+                                            " <span>- <a href="https://twitter.com/PeterHilton" target="_new">Peter Hilton</a></span><span>Software developer, speaker, writer, co-author of ‘<a
+                                                    href="http://manning.com/hilton"
+                                                    target="_new">Play for Scala</a>’</span></p>
+                                    </div>
+                                </div>
+                                <div class="tm-contant-list item">
+                                    <div class="tm-img">
+                                        <a href="https://twitter.com/somatik" target="_new">
+                                            <img src="https://pbs.twimg.com/profile_images/510002188181979136/qyAXPVbR.jpeg"
+                                                 alt="Francis De Brabandere">
+                                        </a>
+                                    </div>
+                                    <div class="tm-text">
+                                        <p>"When starting a project you want to start doing things rather than having to
+                                            think too much about how to do them. That's why we chose to use Deadbolt,
+                                            and I never regretted
+                                            it!"<span>- <a href="https://twitter.com/somatik" target="_new">Francis De Brabandere</a></span><span>Co-founder of Carambla, VP Engineering at <a
+                                                    href="http://waylay.io"
+                                                    target="_new">waylay.io</a></span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="tm-contant-list item">
+                                    <div class="tm-img">
+                                        <a href="https://twitter.com/elmanu" target="_new">
+                                            <img src="https://pbs.twimg.com/profile_images/672800772439019521/Wulf7k0k.jpg"
+                                                 alt="Manuel Bernhardt">
+                                        </a>
+                                    </div>
+                                    <div class="tm-text">
+                                        <p>"Deadbolt is the de facto standard authorisation library for Play Framework
+                                            projects."<span>- <a href="https://twitter.com/somatik"
+                                                                 target="_new">Manuel Bernhardt</a></span><span>Software engineer, trainer, conference speaker, writer, author of ‘<a
+                                                    href="https://www.manning.com/books/reactive-web-applications"
+                                                    target="_new">Reactive Web Applications</a>’</span></p>
+                                    </div>
+                                </div>
+                                <div class="tm-contant-list item">
+                                    <div class="tm-img">
+                                        <a href="https://twitter.com/eduparna" target="_new">
+                                            <img src="https://pbs.twimg.com/profile_images/664356479604932608/eFPXYWLY.png"
+                                                 alt="Eduparna">
+                                        </a>
+                                    </div>
+                                    <div class="tm-text">
+                                        <p>"Everyday at Eduparna.com we help parents choose the best school for their
+                                            kids. We feel this is very important for the future of our world. To help us
+                                            achieve that we use
+                                            Deadbolt! It was fun implementing Deadbolt as it's well documented and is
+                                            Scala friendly!"<span>- <a href="https://twitter.com/somatik" target="_new">Eduparna</a></span><span><a
+                                                    href="https://www.eduparna.com" target="_new">Eduparna</a> helps parents choose schools based on a variety of parameters.</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <br/>
+                            <p><i class="fa fa-info-circle"></i> If you would like to add a testimonial, please get in
+                                touch at <a href="mailto:deadbolt@objectify.be">deadbolt@objectify.be</a>.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="tm-contant">
-              <div class="tm-contant-items" id="slide-testimonial">
-                <div class="tm-contant-list item">
-                  <div class="tm-img">
-                    <a href="https://twitter.com/PeterHilton" target="_new">
-                      <img src="https://pbs.twimg.com/profile_images/494749552528728064/Ns8wZF_a.jpeg" alt="Peter Hilton">
-                    </a>
-                  </div>
-                  <div class="tm-text">
-                    <p>"With Deadbolt, we got authorisation working in less time than it would have taken us just to figure out what our controllers should look like.
-                      " <span>- <a href="https://twitter.com/PeterHilton" target="_new">Peter Hilton</a></span><span>Software developer, speaker, writer, co-author of ‘<a
-                          href="http://manning.com/hilton" target="_new">Play for Scala</a>’</span></p>
-                  </div>
-                </div>
-                <div class="tm-contant-list item">
-                  <div class="tm-img">
-                    <a href="https://twitter.com/somatik" target="_new">
-                      <img src="https://pbs.twimg.com/profile_images/510002188181979136/qyAXPVbR.jpeg" alt="Francis De Brabandere">
-                    </a>
-                  </div>
-                  <div class="tm-text">
-                    <p>"When starting a project you want to start doing things rather than having to think too much about how to do them. That's why we chose to use Deadbolt, and I never regretted
-                      it!"<span>- <a href="https://twitter.com/somatik" target="_new">Francis De Brabandere</a></span><span>Co-founder of Carambla, VP Engineering at <a href="http://waylay.io"
-                                                                                                                                                                         target="_new">waylay.io</a></span>
-                    </p>
-                  </div>
-                </div>
-                <div class="tm-contant-list item">
-                  <div class="tm-img">
-                    <a href="https://twitter.com/elmanu" target="_new">
-                      <img src="https://pbs.twimg.com/profile_images/672800772439019521/Wulf7k0k.jpg" alt="Manuel Bernhardt">
-                    </a>
-                  </div>
-                  <div class="tm-text">
-                    <p>"Deadbolt is the de facto standard authorisation library for Play Framework projects."<span>- <a href="https://twitter.com/somatik"
-                                                                                                                        target="_new">Manuel Bernhardt</a></span><span>Software engineer, trainer, conference speaker, writer, author of ‘<a
-                        href="https://www.manning.com/books/reactive-web-applications" target="_new">Reactive Web Applications</a>’</span></p>
-                  </div>
-                </div>
-                <div class="tm-contant-list item">
-                  <div class="tm-img">
-                    <a href="https://twitter.com/eduparna" target="_new">
-                      <img src="https://pbs.twimg.com/profile_images/664356479604932608/eFPXYWLY.png" alt="Eduparna">
-                    </a>
-                  </div>
-                  <div class="tm-text">
-                    <p>"Everyday at Eduparna.com we help parents choose the best school for their kids. We feel this is very important for the future of our world. To help us achieve that we use
-                      Deadbolt! It was fun implementing Deadbolt as it's well documented and is Scala friendly!"<span>- <a href="https://twitter.com/somatik" target="_new">Eduparna</a></span><span><a
-                          href="https://www.eduparna.com" target="_new">Eduparna</a> helps parents choose schools based on a variety of parameters.</span></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <br/>
-              <p><i class="fa fa-info-circle"></i> If you would like to add a testimonial, please get in touch at <a href="mailto:deadbolt@objectify.be">deadbolt@objectify.be</a>.</p>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 
 <section id="contant-2">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="block">
-          <div class="contant-2-text-area">
-            <div class="contant-2-head">
-              <h1>Get the book!</h1>
-            </div>
-            <div class="contant-2-text">
-              <h2>The definitive guide to Deadbolt.</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="block">
+                    <div class="contant-2-text-area">
+                        <div class="contant-2-head">
+                            <h1>Get the book!</h1>
+                        </div>
+                        <div class="contant-2-text">
+                            <h2>The definitive guide to Deadbolt.</h2>
 
-              <p>Full of examples, this book provides a complete guide <br/> to working with Deadbolt in both Java and Scala. </p>
-              <a href="https://leanpub.com/deadbolt-2" class="btn btn-default edit-button-2"><i class="fa fa-leanpub"></i> LEARN MORE</a>
+                            <p>Full of examples, this book provides a complete guide <br/> to working with Deadbolt in
+                                both Java and Scala. </p>
+                            <a href="https://leanpub.com/deadbolt-2" class="btn btn-default edit-button-2"><i
+                                    class="fa fa-leanpub"></i> LEARN MORE</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="col-md-6">
+                <div class="block-right">
+                    <div class="block-right-img">
+                        <img src="img/book-cover.png" alt="img">
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="col-md-6">
-        <div class="block-right">
-          <div class="block-right-img">
-            <img src="img/book-cover.png" alt="img">
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
 </section>
 
 <section id="sponsors">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="block-top">
-          <div class="sponsors-header">
-            <h1>Sponsors</h1>
-          </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block-top">
+                    <div class="sponsors-header">
+                        <h1>Sponsors</h1>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="block-right">
+                    <div class="sponsors-text-area">
+                        <div class="sponsors-header">
+                            <div class="sponsors-logo">
+                                <a href="https://auth0.com?utm_source=GHsponsor&utm_medium=GHsponsor&utm_campaign=deadbolt&utm_content=auth"
+                                   target="_new"><img
+                                        src="https://cdn.auth0.com/website/assets/pages/press/img/resources/auth0-logo-main-6001cece68.svg"
+                                        alt="Auth0 logo"/></a>
+                            </div>
+                            <br/>
+                        </div>
+                        <div class="sponsors-text">
+                            <br/>
+                            <p>If you want to easily add secure authentication and authorization to your Java or Scala
+                                projects, feel free to check out Auth0's Java SDK, Scala examples and free plan at <a
+                                        href="https://auth0.com/overview?utm_source=GHsponsor&utm_medium=GHsponsor&utm_campaign=deadbolt&utm_content=auth">auth0.com/overview</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="block-right">
+                    <div class="sponsors-text-area">
+                        <div class="sponsors-header">
+                            <div class="sponsors-logo">
+                                <a href="https://www.yourkit.com/" target="_new"><img src="img/yklogo.png"
+                                                                                      alt="YourKit logo"/></a>
+                            </div>
+                            <br/>
+                        </div>
+                        <div class="sponsors-text">
+                            <br/>
+                            <p>IntelliJ IDEA, the award-winning Java IDE, is designed to improve developer productivity.
+                                Its intelligent editor, code analyzer, and powerful set of refactorings support a wide
+                                range
+                                of programming languages, frameworks and technologies, and are ready to use right out of
+                                the box.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="block-right">
+                    <div class="sponsors-text-area">
+                        <div class="sponsors-header">
+                            <div class="sponsors-logo">
+                                <a href="http://travis-ci.com" target="_new"><img
+                                        src="img/TravisCI-Full-Color-4f9bce317a2b82518737a7ee7381c2ec.png"
+                                        alt="Travis CI logo"/></a>
+                            </div>
+                            <br/>
+                        </div>
+                        <div class="sponsors-text">
+                            <br/>
+                            <p>Travis CI is a hosted continuous integration and deployment system. There are two
+                                versions of it, <a href="http://travis-ci.com" target="_new">travis-ci.com</a> for
+                                private repositories,
+                                and <a href="http://travis-ci.org" target="_new">travis-ci.org</a> for public
+                                repositories.Travis CI provides continuous integration for Deadbolt.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="block-right">
+                    <div class="sponsors-text-area">
+                        <div class="sponsors-header">
+                            <div class="sponsors-logo">
+                                <a href="https://www.jetbrains.com/idea/" target="_new"><img
+                                        src="img/logo_JetBrains_4.png" alt="Jetbrains logo"/></a>
+                            </div>
+                            <br/>
+                        </div>
+                        <div class="sponsors-text">
+                            <br/>
+                            <p>YourKit supports open source projects with its full-featured Java Profiler. YourKit, LLC
+                                is the creator of <a href="https://www.yourkit.com/java/profiler/index.jsp"
+                                                     target="_new">YourKit
+                                    Java Profiler</a> and <a href="https://www.yourkit.com/.net/profiler/index.jsp"
+                                                             target="_new">YourKit .NET Profiler</a>, innovative and
+                                intelligent tools for profiling Java and .NET
+                                applications.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="block-right">
-          <div class="sponsors-text-area">
-            <div class="sponsors-header">
-              <div class="sponsors-logo">
-                <a href="https://auth0.com?utm_source=GHsponsor&utm_medium=GHsponsor&utm_campaign=deadbolt&utm_content=auth" target="_new"><img src="https://cdn.auth0.com/website/assets/pages/press/img/resources/auth0-logo-main-6001cece68.svg" alt="Auth0 logo"/></a>
-              </div>
-              <br/>
-            </div>
-            <div class="sponsors-text">
-              <br/>
-              <p>If you want to easily add secure authentication and authorization to your Java or Scala projects, feel free to check out Auth0's Java SDK, Scala examples and free plan at <a
-                  href="https://auth0.com/overview?utm_source=GHsponsor&utm_medium=GHsponsor&utm_campaign=deadbolt&utm_content=auth">auth0.com/overview</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="block-right">
-          <div class="sponsors-text-area">
-            <div class="sponsors-header">
-              <div class="sponsors-logo">
-                <a href="https://www.yourkit.com/" target="_new"><img src="img/yklogo.png" alt="YourKit logo"/></a>
-              </div>
-              <br/>
-            </div>
-            <div class="sponsors-text">
-              <br/>
-              <p>IntelliJ IDEA, the award-winning Java IDE, is designed to improve developer productivity. Its intelligent editor, code analyzer, and powerful set of refactorings support a wide range
-                of programming languages, frameworks and technologies, and are ready to use right out of the box.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="block-right">
-          <div class="sponsors-text-area">
-            <div class="sponsors-header">
-              <div class="sponsors-logo">
-                <a href="http://travis-ci.com" target="_new"><img src="img/TravisCI-Full-Color-4f9bce317a2b82518737a7ee7381c2ec.png" alt="Travis CI logo"/></a>
-              </div>
-              <br/>
-            </div>
-            <div class="sponsors-text">
-              <br/>
-              <p>Travis CI is a hosted continuous integration and deployment system. There are two versions of it, <a href="http://travis-ci.com" target="_new">travis-ci.com</a> for private repositories,
-                and <a href="http://travis-ci.org" target="_new">travis-ci.org</a> for public repositories.Travis CI provides continuous integration for Deadbolt.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="block-right">
-          <div class="sponsors-text-area">
-            <div class="sponsors-header">
-              <div class="sponsors-logo">
-                <a href="https://www.jetbrains.com/idea/" target="_new"><img src="img/logo_JetBrains_4.png" alt="Jetbrains logo"/></a>
-              </div>
-              <br/>
-            </div>
-            <div class="sponsors-text">
-              <br/>
-              <p>YourKit supports open source projects with its full-featured Java Profiler. YourKit, LLC is the creator of <a href="https://www.yourkit.com/java/profiler/index.jsp" target="_new">YourKit
-                Java Profiler</a> and <a href="https://www.yourkit.com/.net/profiler/index.jsp" target="_new">YourKit .NET Profiler</a>, innovative and intelligent tools for profiling Java and .NET
-                applications.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <section id="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="block">
-          <div class="footer-contant">
-            <div class="support-link">
-              <ul>
-                <li><a href="https://twitter.com/deadbolt_auth"><i class="fa fa-twitter"></i> @deadbolt_auth</a></li>
-                <li><a href="http://stackoverflow.com/questions/tagged/deadbolt-2"><i class="fa fa-stack-overflow"></i> Stack Overflow</a></li>
-                <li><a href="http://github.io/schaloner/deadbolt-2"><i class="fa fa-github-alt"></i> GitHub</a></li>
-                <li><a href="https://www.themefisher.com/items/small-apps-free-app-landing-page-template/"><i class="fa fa-file-code-o"></i> Theme by ThemeFisher</a></li>
-              </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block">
+                    <div class="footer-contant">
+                        <div class="support-link">
+                            <ul>
+                                <li><a href="https://twitter.com/deadbolt_auth"><i class="fa fa-twitter"></i>
+                                    @deadbolt_auth</a></li>
+                                <li><a href="http://stackoverflow.com/questions/tagged/deadbolt-2"><i
+                                        class="fa fa-stack-overflow"></i> Stack Overflow</a></li>
+                                <li><a href="http://github.io/schaloner/deadbolt-2"><i class="fa fa-github-alt"></i>
+                                    GitHub</a></li>
+                                <li>
+                                    <a href="https://www.themefisher.com/items/small-apps-free-app-landing-page-template/"><i
+                                            class="fa fa-file-code-o"></i> Theme by ThemeFisher</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 
+</body>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
 <script src="js/owl.carousel.min.js"></script>
@@ -543,22 +622,39 @@
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
 <script async="async" defer="defer" id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+<script src="js/jquery.ihavecookies.min.js"></script>
 
 <script>
-  (function (b, o, i, l, e, r) {
-    b.GoogleAnalyticsObject = l;
-    b[l] || (b[l] =
-      function () {
-        (b[l].q = b[l].q || []).push(arguments)
-      });
-    b[l].l = +new Date;
-    e = o.createElement(i);
-    r = o.getElementsByTagName(i)[0];
-    e.src = '//www.google-analytics.com/analytics.js';
-    r.parentNode.insertBefore(e, r)
-  }(window, document, 'script', 'ga'));
-  ga('create', 'UA-2239875-3');
-  ga('send', 'pageview');
+    $('body').ihavecookies({
+        cookieTypes: [
+            {
+                type: 'Analytics',
+                value: 'analytics',
+                description: 'Cookies related to site visits, browser types, etc.'
+            }],
+        link: "/privacy.html",
+        onAccept: function () {
+            if ($.fn.ihavecookies.preference('analytics') === true) {
+                googleAnalytics();
+            }
+        }
+    });
+
+    function googleAnalytics() {
+        (function (b, o, i, l, e, r) {
+            b.GoogleAnalyticsObject = l;
+            b[l] || (b[l] =
+                function () {
+                    (b[l].q = b[l].q || []).push(arguments)
+                });
+            b[l].l = +new Date;
+            e = o.createElement(i);
+            r = o.getElementsByTagName(i)[0];
+            e.src = '//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e, r)
+        }(window, document, 'script', 'ga'));
+        ga('create', 'UA-2239875-3');
+        ga('send', 'pageview');
+    }
 </script>
-</body>
 </html>
