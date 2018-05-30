@@ -614,6 +614,28 @@
     </div>
 </section>
 
+<section id="privacy-policy">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="block-right">
+                    <div class="privacy-policy-text-area">
+                        <div class="privacy-policy-header">
+                            <h3>Privacy policy</h3>
+                        </div>
+                        <div class="privacy-policy-text">
+                            <p>To comply with GDPR, this website uses a cookie management tool that allows you to opt into Google Analytics tracking.  This data is not shared with anyone, and it used purely to track interest in the Deadbolt project.</p>
+                            <p>The necessary cookies used by this website are those that store your cookie preferences.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+</section>
+
 </body>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
@@ -632,7 +654,7 @@
                 value: 'analytics',
                 description: 'Cookies related to site visits, browser types, etc.'
             }],
-        link: "/privacy.html",
+        link: "#privacy-policy",
         onAccept: function () {
             if ($.fn.ihavecookies.preference('analytics') === true) {
                 googleAnalytics();
